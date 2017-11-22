@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/TextInputLayoutStyle"
+    android:orientation="vertical"
+    tools:context="com.android.rdc.librarysystem.ui.AddReaderActivity">
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_id"
+        style="@style/TextInputLayoutStyle"
+        android:hint="@string/reader_id">
+
+        <EditText
+            android:id="@+id/et_reader_id"
+            style="@style/TextInputLayoutStyle"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_reader_name"
+        style="@style/TextInputLayoutStyle"
+        android:hint="@string/reader_name"
+        app:layout_constraintTop_toBottomOf="@id/til_id">
+
+        <EditText
+            android:id="@+id/et_reader_name"
+            style="@style/TextInputLayoutStyle"/>
+    </android.support.design.widget.TextInputLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_indicator_reader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/reader_type"
+            app:layout_constraintTop_toBottomOf="@id/til_reader_name"/>
+
+        <Spinner
+            android:id="@+id/sp_reader_type"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="性别："/>
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_man"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/man"/>
+
+            <RadioButton
+                android:id="@+id/rb_women"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/woman"/>
+        </RadioGroup>
+
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tv_enroll_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#22b0b4b0"
+        android:text="@string/enroll_date"/>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_company"
+        style="@style/TextInputLayoutStyle"
+        android:hint="工作单位"
+        app:layout_constraintTop_toBottomOf="@id/til_id">
+
+        <EditText
+            android:id="@+id/et_company_name"
+            style="@style/TextInputLayoutStyle"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_home_address"
+        style="@style/TextInputLayoutStyle"
+        android:hint="@string/home_address"
+        app:layout_constraintTop_toBottomOf="@id/til_id">
+
+        <EditText
+            android:id="@+id/et_home_address"
+            style="@style/TextInputLayoutStyle"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_phone"
+        style="@style/TextInputLayoutStyle"
+        android:hint="联系方式"
+        app:layout_constraintTop_toBottomOf="@id/til_id">
+
+        <EditText
+            android:id="@+id/et_phone"
+            style="@style/TextInputLayoutStyle"
+            android:inputType="phone"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_email"
+        style="@style/TextInputLayoutStyle"
+        android:hint="@string/email"
+        app:layout_constraintTop_toBottomOf="@id/til_id">
+
+        <EditText
+            android:id="@+id/et_email"
+            style="@style/TextInputLayoutStyle"
+            android:inputType="textEmailAddress"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_remark"
+        style="@style/TextInputLayoutStyle"
+        android:hint="@string/remark"
+        app:layout_constraintTop_toBottomOf="@id/til_id">
+
+        <EditText
+            android:id="@+id/et_remark"
+            style="@style/TextInputLayoutStyle"
+            android:inputType="textEmailAddress"/>
+    </android.support.design.widget.TextInputLayout>
+
+</LinearLayout>
