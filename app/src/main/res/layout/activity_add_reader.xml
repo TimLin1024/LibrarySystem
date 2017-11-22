@@ -144,4 +144,10 @@
             android:inputType="textEmailAddress"/>
     </android.support.design.widget.TextInputLayout>
 
+    <Button
+        android:id="@+id/btn_add_reader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_reader"/>
+
 </LinearLayout>

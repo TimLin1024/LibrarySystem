@@ -1,54 +1,46 @@
 package com.android.rdc.librarysystem.bean;
 
+import org.litepal.crud.DataSupport;
+
 /**
  * 读者类型
  */
-public class BookType {
+public class BookType extends DataSupport {
 
-    private Long mId;
-    private String mTypeName;//名字
-    private String mKeyWord;//关键词
-    private String mRemark;//备注
+    private int id;
+    private String typeName;//名字
+    private String keyWord;//关键词
+    private String remark;//备注
 
-    public Long getId() {
-        return mId;
+    public int getId() {
+        return id;
     }
 
-    public void setId(Long id) {
-        mId = id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTypeName() {
-        return mTypeName;
+        return typeName;
     }
 
     public void setTypeName(String typeName) {
-        mTypeName = typeName;
+        this.typeName = typeName;
     }
 
     public String getKeyWord() {
-        return mKeyWord;
+        return keyWord;
     }
 
     public void setKeyWord(String keyWord) {
-        mKeyWord = keyWord;
+        this.keyWord = keyWord;
     }
 
     public String getRemark() {
-        return mRemark;
+        return remark;
     }
 
     public void setRemark(String remark) {
-        mRemark = remark;
-    }
-
-    @Override
-    public String toString() {
-        return "BookType{" +
-                "mId=" + mId +
-                ", mTypeName='" + mTypeName + '\'' +
-                ", mKeyWord='" + mKeyWord + '\'' +
-                ", mRemark='" + mRemark + '\'' +
-                '}';
+        this.remark = remark;
     }
 }

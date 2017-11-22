@@ -9,4 +9,5 @@
     <string name="home_address">家庭住址</string>
     <string name="email">邮箱</string>
     <string name="remark">备注信息</string>
+    <string name="add_reader">新建读者</string>
 </resources>

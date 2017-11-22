@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+    <dbname value="demo"/>
+
+    <version value="1"/>
+
+    <list>
+        <mapping class="com.android.rdc.librarysystem.bean.Book"/>
+        <mapping class="com.android.rdc.librarysystem.bean.BookType"/>
+        <mapping class="com.android.rdc.librarysystem.bean.Reader"/>
+        <mapping class="com.android.rdc.librarysystem.bean.ReaderType"/>
+        <mapping class="com.android.rdc.librarysystem.bean.Borrow"/>
+
+    </list>
+</litepal>

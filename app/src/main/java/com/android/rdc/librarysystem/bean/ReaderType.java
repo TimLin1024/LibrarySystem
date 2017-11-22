@@ -1,76 +1,65 @@
 package com.android.rdc.librarysystem.bean;
 
+import org.litepal.crud.DataSupport;
+
 import java.util.Date;
 
 /**
  * 读者类型
  */
-public class ReaderType {
+public class ReaderType extends DataSupport {
+    private int id;
+    private String typeName;
+    private int borrowCount;
+    private int borrowLen;
+    private Date expDate;//过期期限，也就是有效期
+    private String remark;//备注
 
-    private Long mId;
-    private String mTypeName;
-    private Long mBorrowCount;
-    private Long mBorrowLen;
-    private Date mE1xDate;//过期期限，也就是有效期
-    private String mRemark;//备注
-
-    public Long getId() {
-        return mId;
+    public int getId() {
+        return id;
     }
 
-    public void setId(Long id) {
-        mId = id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTypeName() {
-        return mTypeName;
+        return typeName;
     }
 
     public void setTypeName(String typeName) {
-        mTypeName = typeName;
+        this.typeName = typeName;
     }
 
-    public Long getBorrowCount() {
-        return mBorrowCount;
+    public int getBorrowCount() {
+        return borrowCount;
     }
 
-    public void setBorrowCount(Long borrowCount) {
-        mBorrowCount = borrowCount;
+    public void setBorrowCount(int borrowCount) {
+        this.borrowCount = borrowCount;
     }
 
-    public Long getBorrowLen() {
-        return mBorrowLen;
+    public int getBorrowLen() {
+        return borrowLen;
     }
 
-    public void setBorrowLen(Long borrowLen) {
-        mBorrowLen = borrowLen;
+    public void setBorrowLen(int borrowLen) {
+        this.borrowLen = borrowLen;
     }
 
-    public Date getE1xDate() {
-        return mE1xDate;
+    public Date getExpDate() {
+        return expDate;
     }
 
-    public void setE1xDate(Date e1xDate) {
-        mE1xDate = e1xDate;
+    public void setExpDate(Date expDate) {
+        this.expDate = expDate;
     }
 
     public String getRemark() {
-        return mRemark;
+        return remark;
     }
 
     public void setRemark(String remark) {
-        mRemark = remark;
-    }
-
-    @Override
-    public String toString() {
-        return "ReaderType{" +
-                "mId=" + mId +
-                ", mTypeName='" + mTypeName + '\'' +
-                ", mBorrowCount=" + mBorrowCount +
-                ", mBorrowLen=" + mBorrowLen +
-                ", mE1xDate=" + mE1xDate +
-                ", mRemark='" + mRemark + '\'' +
-                '}';
+        this.remark = remark;
     }
 }
