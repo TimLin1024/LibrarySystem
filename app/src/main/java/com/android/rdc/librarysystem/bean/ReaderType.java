@@ -9,9 +9,9 @@ import java.util.Date;
  */
 public class ReaderType extends DataSupport {
     private int id;
-    private String typeName;
+    private String typeName;//本科生 研究生 博士生 教师
     private int borrowCount;
-    private int borrowLen;
+    private int borrowMon;//借书的期限
     private Date expDate;//过期期限，也就是有效期
     private String remark;//备注
 
@@ -39,12 +39,12 @@ public class ReaderType extends DataSupport {
         this.borrowCount = borrowCount;
     }
 
-    public int getBorrowLen() {
-        return borrowLen;
+    public int getborrowMon() {
+        return borrowMon;
     }
 
-    public void setBorrowLen(int borrowLen) {
-        this.borrowLen = borrowLen;
+    public void setborrowMon(int borrowMon) {
+        this.borrowMon = borrowMon;
     }
 
     public Date getExpDate() {

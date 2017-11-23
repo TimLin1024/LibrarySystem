@@ -21,6 +21,8 @@
             android:name=".ui.AddReaderActivity"
             android:exported="true">
         </activity>
+        <activity android:name=".ui.AddReaderTypeActivity">
+        </activity>
     </application>
 
 </manifest>
