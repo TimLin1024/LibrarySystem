@@ -8,6 +8,8 @@ import com.android.rdc.amdroidutil.base.BaseToolbarActivity;
 import com.android.rdc.amdroidutil.listener.OnClickRecyclerViewListener;
 import com.android.rdc.librarysystem.adapter.GridRvAdapter;
 import com.android.rdc.librarysystem.model.HomeModel;
+import com.android.rdc.librarysystem.ui.AddBookActivity;
+import com.android.rdc.librarysystem.ui.AddBookTypeActivity;
 import com.android.rdc.librarysystem.ui.AddReaderActivity;
 import com.android.rdc.librarysystem.ui.AddReaderTypeActivity;
 
@@ -43,6 +45,7 @@ public class MainActivity extends BaseToolbarActivity {
     @Override
     protected void initListener() {
         mAdapter.setOnRecyclerViewListener(new OnClickRecyclerViewListener() {
+            //读者 读者类型 书籍 书籍类型
             @Override
             public void onItemClick(int i) {
                 switch (i) {
@@ -53,7 +56,12 @@ public class MainActivity extends BaseToolbarActivity {
                         startActivity(AddReaderTypeActivity.class);
                         break;
                     case 2:
+                        startActivity(AddBookActivity.class);
                         break;
+                    case 3:
+                        startActivity(AddBookTypeActivity.class);
+                        break;
+                    default:
                 }
             }
 
@@ -63,5 +71,4 @@ public class MainActivity extends BaseToolbarActivity {
             }
         });
     }
-
 }

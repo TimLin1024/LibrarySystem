@@ -39,11 +39,11 @@ public class ReaderType extends DataSupport {
         this.borrowCount = borrowCount;
     }
 
-    public int getborrowMon() {
+    public int getBorrowMon() {
         return borrowMon;
     }
 
-    public void setborrowMon(int borrowMon) {
+    public void setBorrowMon(int borrowMon) {
         this.borrowMon = borrowMon;
     }
 

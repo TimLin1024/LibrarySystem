@@ -67,17 +67,11 @@ public class AddReaderTypeActivity extends BaseAddActivity {
             case R.id.btn_add_reader_type:
                 ReaderType readerType = new ReaderType();
                 readerType.setTypeName(getString(mEtReaderCategoryName));
-                readerType.setBorrowCount(Integer.parseInt(getString(mEtBorrowCount)));
-                readerType.setborrowMon(Integer.parseInt(getString(mEtBorrowLen)));
+                readerType.setBorrowCount(getNumberFromEt(mEtBorrowCount, 5));//若为空 默认为 5 本
+                readerType.setBorrowMon(getNumberFromEt(mEtBorrowLen, 1));//如果为空默认为 1 个月
                 readerType.setRemark(getString(mEtRemark));
                 readerType.setExpDate(mExpDate);
-
-                if (readerType.save()) {
-                    showToast("创建成功");
-                    finish();
-                } else {
-                    showToast("创建失败，请重试");
-                }
+                resolveSave(readerType);
                 break;
         }
     }
@@ -91,5 +85,4 @@ public class AddReaderTypeActivity extends BaseAddActivity {
                 .build()
                 .show();
     }
-
 }

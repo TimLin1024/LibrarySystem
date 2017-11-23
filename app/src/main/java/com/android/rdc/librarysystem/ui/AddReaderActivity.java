@@ -6,7 +6,6 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.rdc.librarysystem.R;
 import com.android.rdc.librarysystem.base.BaseAddActivity;
@@ -107,11 +106,6 @@ public class AddReaderActivity extends BaseAddActivity {
         reader.setGender(mRbMan.isChecked() ? "男" : "女");
         reader.setRemark(getString(mEtRemark));
 //        reader.setReaderType(mSpReaderType.getSelectedItemPosition().);
-        if (reader.save()) {
-            Toast.makeText(this, "添加成功", Toast.LENGTH_SHORT).show();
-            finish();
-        } else {
-            Toast.makeText(this, "添加失败，请重试", Toast.LENGTH_SHORT).show();
-        }
+        resolveSave(reader);
     }
 }

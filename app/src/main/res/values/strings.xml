@@ -16,4 +16,14 @@
     <string name="borrow_mon">借书期限(单位：月)</string>
     <string name="expire_date">有效值至</string>
     <string name="add_reader_type">新建读者类型</string>
+    <string name="add_book_type">新建书籍类型</string>
+    <string name="publish_date">出版日期</string>
+    <string name="price">价格(RMB)</string>
+    <string name="page_num">页数</string>
+    <string name="book_name">书名</string>
+    <string name="book_type">图书类型</string>
+    <string name="author_name">作者名称</string>
+    <string name="press_name">出版社名称</string>
+    <string name="add_book">添加书籍</string>
+    <string name="keyword">关键词（用逗号分隔）</string>
 </resources>

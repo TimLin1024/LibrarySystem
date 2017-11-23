@@ -23,6 +23,10 @@
         </activity>
         <activity android:name=".ui.AddReaderTypeActivity">
         </activity>
+        <activity android:name=".ui.AddBookActivity">
+        </activity>
+        <activity android:name=".ui.AddBookTypeActivity">
+        </activity>
     </application>
 
 </manifest>
