@@ -80,8 +80,9 @@ public class AddReaderTypeActivity extends BaseAddActivity {
         new TimePickerView.Builder(this, (date, v1) -> {
             mExpDate = date;
             mTvExpireDate.setText(String.format("失效日期：%s", DateUtil.dayFormat(date)));
-        }).setDate(Calendar.getInstance())
+        })
                 .setType(TimePickerView.Type.YEAR_MONTH_DAY)
+                .setDate(Calendar.getInstance())
                 .build()
                 .show();
     }

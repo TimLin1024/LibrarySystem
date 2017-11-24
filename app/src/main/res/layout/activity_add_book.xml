@@ -41,7 +41,8 @@
                 android:id="@+id/sp_book_type"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:spinnerMode="dropdown"/>
         </LinearLayout>
 
         <LinearLayout
@@ -49,7 +50,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="25dp"
             android:layout_marginStart="25dp"
-            android:orientation="horizontal">
+            android:divider="@drawable/divider_line_vertical"
+            android:orientation="horizontal"
+            android:showDividers="middle">
 
             <TextView
                 android:id="@+id/tv_publish_date"
@@ -67,6 +70,7 @@
                 android:layout_weight="1"
                 android:background="#22b0b4b0"
                 android:gravity="center_vertical"
+                android:paddingLeft="3dp"
                 android:text="@string/enroll_date"/>
         </LinearLayout>
 

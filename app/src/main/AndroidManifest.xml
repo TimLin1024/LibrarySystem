@@ -27,6 +27,8 @@
         </activity>
         <activity android:name=".ui.AddBookTypeActivity">
         </activity>
+        <activity android:name=".ui.BorrowBookActivity">
+        </activity>
     </application>
 
 </manifest>

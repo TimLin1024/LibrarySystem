@@ -1,6 +1,7 @@
 package com.android.rdc.librarysystem.ui;
 
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -9,11 +10,16 @@ import android.widget.TextView;
 import com.android.rdc.librarysystem.R;
 import com.android.rdc.librarysystem.base.BaseAddActivity;
 import com.android.rdc.librarysystem.bean.Book;
+import com.android.rdc.librarysystem.bean.BookType;
 import com.android.rdc.librarysystem.util.DateUtil;
 import com.bigkoo.pickerview.TimePickerView;
 
+import org.litepal.crud.DataSupport;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -48,6 +54,7 @@ public class AddBookActivity extends BaseAddActivity {
 
     private Date mPublishDate;
     private Date mEnrollDate;
+    private List<BookType> mBookTypeList;
 
     @Override
     protected int setLayoutResID() {
@@ -56,7 +63,7 @@ public class AddBookActivity extends BaseAddActivity {
 
     @Override
     protected void initData() {
-
+        mBookTypeList = DataSupport.findAll(BookType.class);
     }
 
     @Override
@@ -66,7 +73,12 @@ public class AddBookActivity extends BaseAddActivity {
 
     @Override
     protected void initListener() {
-
+        List<String> stringList = new ArrayList<>();
+        for (BookType bookType : mBookTypeList) {
+            stringList.add(bookType.getTypeName());
+        }
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, stringList);
+        mSpBookType.setAdapter(arrayAdapter);
     }
 
     @OnClick({R.id.tv_publish_date, R.id.tv_enroll_date, R.id.btn_add_book})
@@ -81,7 +93,7 @@ public class AddBookActivity extends BaseAddActivity {
             case R.id.btn_add_book:
                 Book book = new Book();
                 book.setBookName(getString(mEtBookName));
-//                book.setBookType();
+                book.setBookType(mBookTypeList.get(mSpBookType.getSelectedItemPosition()));
                 book.setAuthorName(getString(mEtAuthorName));
                 book.setPressName(getString(mEtPressName));
                 book.setPublishDate(mPublishDate);
@@ -89,7 +101,7 @@ public class AddBookActivity extends BaseAddActivity {
                 book.setPages(getNumberFromEt(mEtPageNum, 0));
                 book.setKeyWord(getString(mEtKeywords));
                 book.setEnrollDate(mEnrollDate);
-                //是否借出
+                book.setBorrowed(false);//刚登记入库，默认未借出
                 book.setRemark(getString(mEtRemark));
                 resolveSave(book);
                 break;
@@ -109,9 +121,9 @@ public class AddBookActivity extends BaseAddActivity {
                     break;
             }
         })
+                .setType(TimePickerView.Type.YEAR_MONTH_DAY)
                 .setDate(Calendar.getInstance())
                 .build()
                 .show();
     }
-
 }

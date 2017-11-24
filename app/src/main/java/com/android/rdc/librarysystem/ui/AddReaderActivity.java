@@ -1,6 +1,7 @@
 package com.android.rdc.librarysystem.ui;
 
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -10,11 +11,16 @@ import android.widget.TextView;
 import com.android.rdc.librarysystem.R;
 import com.android.rdc.librarysystem.base.BaseAddActivity;
 import com.android.rdc.librarysystem.bean.Reader;
+import com.android.rdc.librarysystem.bean.ReaderType;
 import com.android.rdc.librarysystem.util.DateUtil;
 import com.bigkoo.pickerview.TimePickerView;
 
+import org.litepal.crud.DataSupport;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -24,8 +30,6 @@ import butterknife.OnClick;
  */
 public class AddReaderActivity extends BaseAddActivity {
 
-    //    @BindView(R.id.et_reader_id)
-//    EditText mEtReaderId;
     @BindView(R.id.et_reader_name)
     EditText mEtReaderName;
     @BindView(R.id.tv_indicator_reader)
@@ -52,6 +56,7 @@ public class AddReaderActivity extends BaseAddActivity {
     Button mBtnAddReader;
 
     private Date mEnrollDate;
+    private List<ReaderType> mReaderTypeList;
 
     @Override
     protected int setLayoutResID() {
@@ -60,17 +65,22 @@ public class AddReaderActivity extends BaseAddActivity {
 
     @Override
     protected void initData() {
-        setTitle("添加读者");
+        mReaderTypeList = DataSupport.findAll(ReaderType.class);
     }
 
     @Override
     protected void initView() {
-
+        setTitle("添加读者");
     }
 
     @Override
     protected void initListener() {
-
+        List<String> typeNameList = new ArrayList<>();
+        for (ReaderType readerType : mReaderTypeList) {
+            typeNameList.add(readerType.getTypeName());
+        }
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, typeNameList);
+        mSpReaderType.setAdapter(arrayAdapter);
     }
 
     @OnClick({R.id.btn_add_reader, R.id.tv_enroll_date})
@@ -88,7 +98,7 @@ public class AddReaderActivity extends BaseAddActivity {
     private void showDatePicker() {
         new TimePickerView.Builder(this, (date, v1) -> {
             mEnrollDate = date;
-            mTvEnrollDate.setText(DateUtil.dayFormat(date));
+            mTvEnrollDate.setText(String.format("登记日期：%s", DateUtil.dayFormat(date)));
         }).setDate(Calendar.getInstance())
                 .setType(TimePickerView.Type.YEAR_MONTH_DAY)
                 .build()
@@ -105,7 +115,8 @@ public class AddReaderActivity extends BaseAddActivity {
         reader.setEnrollDate(mEnrollDate);
         reader.setGender(mRbMan.isChecked() ? "男" : "女");
         reader.setRemark(getString(mEtRemark));
-//        reader.setReaderType(mSpReaderType.getSelectedItemPosition().);
+
+        reader.setReaderType(mReaderTypeList.get(mSpReaderType.getSelectedItemPosition()));
         resolveSave(reader);
     }
 }

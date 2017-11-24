@@ -2,7 +2,9 @@ package com.android.rdc.librarysystem.bean;
 
 import org.litepal.crud.DataSupport;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Book extends DataSupport {
     private int id;//编号
@@ -17,7 +19,8 @@ public class Book extends DataSupport {
     private Date enrollDate;//登记日期
     private boolean isBorrowed;//是否借出
     private String remark;//备注
-//    private List<Reader> mReaderList = new ArrayList<>();
+    //    private List<Reader> mReaderList = new ArrayList<>();
+    private List<BookType> bookTypeList = new ArrayList<>();//同一本书可以有多种类型，比如 程序开发，移动开发
 
     public int getId() {
         return id;

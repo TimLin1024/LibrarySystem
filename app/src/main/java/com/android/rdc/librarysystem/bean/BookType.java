@@ -1,6 +1,10 @@
 package com.android.rdc.librarysystem.bean;
 
+import org.litepal.annotation.Column;
 import org.litepal.crud.DataSupport;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 读者类型
@@ -8,9 +12,11 @@ import org.litepal.crud.DataSupport;
 public class BookType extends DataSupport {
 
     private int id;
+    @Column(unique = true)
     private String typeName;//名字
     private String keyWord;//关键词
     private String remark;//备注
+    private List<Book> bookList = new ArrayList<>();//同一种类型可对应多不同的本书
 
     public int getId() {
         return id;

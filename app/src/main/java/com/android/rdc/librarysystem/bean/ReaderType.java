@@ -1,19 +1,24 @@
 package com.android.rdc.librarysystem.bean;
 
+import org.litepal.annotation.Column;
 import org.litepal.crud.DataSupport;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 读者类型
  */
 public class ReaderType extends DataSupport {
     private int id;
+    @Column(unique = true)
     private String typeName;//本科生 研究生 博士生 教师
     private int borrowCount;
     private int borrowMon;//借书的期限
     private Date expDate;//过期期限，也就是有效期
     private String remark;//备注
+    private List<Reader> readerList = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -61,5 +66,13 @@ public class ReaderType extends DataSupport {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public List<Reader> getReaderList() {
+        return readerList;
+    }
+
+    public void setReaderList(List<Reader> readerList) {
+        this.readerList = readerList;
     }
 }

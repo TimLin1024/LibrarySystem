@@ -1,5 +1,6 @@
 package com.android.rdc.librarysystem.ui;
 
+import android.app.AlertDialog;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -7,9 +8,15 @@ import com.android.rdc.librarysystem.R;
 import com.android.rdc.librarysystem.base.BaseAddActivity;
 import com.android.rdc.librarysystem.bean.BookType;
 
+import org.litepal.crud.DataSupport;
+
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.OnClick;
-
+/**
+ * 添加书籍类型
+ * */
 public class AddBookTypeActivity extends BaseAddActivity {
 
     @BindView(R.id.et_book_category_name)
@@ -43,10 +50,29 @@ public class AddBookTypeActivity extends BaseAddActivity {
 
     @OnClick(R.id.btn_add_book_type)
     public void onViewClicked() {
+        List<BookType> bookTypeIdList = DataSupport
+                .select("id")
+                .where("typeName=?", getString(mEtBookCategoryName))
+                .find(BookType.class);
+
         BookType bookType = new BookType();
         bookType.setTypeName(getString(mEtBookCategoryName));
         bookType.setKeyWord(getString(mEtKeyword));
         bookType.setRemark(getString(mEtRemark));
-        resolveSave(bookType);
+
+        if (!bookTypeIdList.isEmpty()) {
+            new AlertDialog.Builder(this)
+                    .setMessage("您指定的书籍类型已存在，是否对其内容进行更新？")
+                    .setPositiveButton("确定", (dialog, which) -> {
+                        bookType.update(bookTypeIdList.get(0).getId());//对内容进行更新
+                        finish();
+                    })
+                    .setNegativeButton("取消", (dialog, which) -> {
+                        finish();
+                    })
+                    .show();
+        } else {
+            resolveSave(bookType);
+        }
     }
 }
