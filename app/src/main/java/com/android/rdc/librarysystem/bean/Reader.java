@@ -1,8 +1,11 @@
 package com.android.rdc.librarysystem.bean;
 
+import org.litepal.annotation.Column;
 import org.litepal.crud.DataSupport;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 读者类型
@@ -19,7 +22,10 @@ public class Reader extends DataSupport {
     private String email;//邮箱
     private Date enrollDate;//登记日期
     private String remark;//备注
-//    private List<Book> mBookList = new ArrayList<>();
+    @Column(defaultValue = "0")
+    private int currentBorrowCount;//当前借阅的书籍数目
+    //    private List<Book> mBookList = new ArrayList<>();
+    private List<Borrow> borrowList = new ArrayList<>();//同一读者可以对应多条借阅记录，可以借阅多种
 
     public int getId() {
         return id;
@@ -100,4 +106,22 @@ public class Reader extends DataSupport {
     public void setRemark(String remark) {
         this.remark = remark;
     }
+
+    public int getCurrentBorrowCount() {
+        return currentBorrowCount;
+    }
+
+    public void setCurrentBorrowCount(int currentBorrowCount) {
+        this.currentBorrowCount = currentBorrowCount;
+    }
+
+    public void increaseCurrentBorrowCount() {
+        this.currentBorrowCount++;
+    }
+
+    public void decreaseCurrentBorrowCount() {
+        this.currentBorrowCount--;
+    }
+
+
 }

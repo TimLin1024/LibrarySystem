@@ -2,7 +2,6 @@ package com.android.rdc.librarysystem.ui;
 
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -49,8 +48,6 @@ public class AddBookActivity extends BaseAddActivity {
     EditText mEtKeywords;
     @BindView(R.id.et_remark)
     EditText mEtRemark;
-    @BindView(R.id.btn_add_book)
-    Button mBtnAddBook;
 
     private Date mPublishDate;
     private Date mEnrollDate;

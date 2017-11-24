@@ -1,7 +1,6 @@
 package com.android.rdc.librarysystem.ui;
 
 import android.app.AlertDialog;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.android.rdc.librarysystem.R;
@@ -25,8 +24,6 @@ public class AddBookTypeActivity extends BaseAddActivity {
     EditText mEtKeyword;
     @BindView(R.id.et_remark)
     EditText mEtRemark;
-    @BindView(R.id.btn_add_book_type)
-    Button mBtnAddBookType;
 
     @Override
     protected int setLayoutResID() {

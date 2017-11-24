@@ -26,4 +26,5 @@
     <string name="press_name">出版社名称</string>
     <string name="add_book">添加书籍</string>
     <string name="keyword">关键词（用逗号分隔）</string>
+    <string name="borrow">借阅</string>
 </resources>

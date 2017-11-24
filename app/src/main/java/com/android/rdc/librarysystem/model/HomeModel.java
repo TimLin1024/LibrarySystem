@@ -30,6 +30,12 @@ public class HomeModel {
         bookTypeItemBean.setItemName("添加书籍类型");
         homeItemBeans.add(bookTypeItemBean);
 
+        HomeItemBean borrowBookItemBean = new HomeItemBean();
+        borrowBookItemBean.setIconId(R.drawable.ic_borrow_book);
+        borrowBookItemBean.setItemName("借书");
+        homeItemBeans.add(borrowBookItemBean);
+
+
         return homeItemBeans;
     }
 

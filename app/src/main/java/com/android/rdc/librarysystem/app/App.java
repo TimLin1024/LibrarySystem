@@ -1,5 +1,7 @@
 package com.android.rdc.librarysystem.app;
 
+import android.util.Log;
+
 import com.android.rdc.librarysystem.bean.BookType;
 import com.android.rdc.librarysystem.bean.ReaderType;
 import com.facebook.stetho.Stetho;
@@ -8,11 +10,10 @@ import org.litepal.LitePalApplication;
 import org.litepal.crud.DataSupport;
 import org.litepal.tablemanager.Connector;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 public class App extends LitePalApplication {
+    private static final String TAG = "App";
 
     @Override
     public void onCreate() {
@@ -61,20 +62,18 @@ public class App extends LitePalApplication {
         if (DataSupport.findFirst(BookType.class) != null) {
             return;
         }
-        List<BookType> bookTypeList = new ArrayList<>();
         BookType bookType = new BookType();
         bookType.setTypeName("计算机");
-        bookTypeList.add(bookType);
+//        bookType.save();
+        Log.d(TAG, "addDefaultBookType: " + bookType.save());
 
         BookType literalType = new BookType();
         literalType.setTypeName("文学");
         literalType.setKeyWord("小说");
-        bookTypeList.add(literalType);
+        literalType.save();
 
         BookType artType = new BookType();
         artType.setTypeName("艺术");
-        bookTypeList.add(artType);
-
-        DataSupport.saveAllAsync(bookTypeList);
+        artType.save();
     }
 }

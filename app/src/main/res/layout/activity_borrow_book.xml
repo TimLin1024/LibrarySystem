@@ -1,10 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.android.rdc.librarysystem.ui.BorrowBookActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <include layout="@layout/include_toolbar"/>
+
+    <android.support.design.widget.TextInputLayout
+        style="@style/TextInputLayoutStyle"
+        android:hint="借书证号">
+
+        <android.support.v7.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/tv_auto_complete_reader_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:completionThreshold="1"
+            android:inputType="number"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        style="@style/TextInputLayoutStyle"
+        android:hint="借阅的图书编号">
+
+        <android.support.v7.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/tv_auto_complete_book_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:completionThreshold="1"
+            android:inputType="number"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/btn_borrow"
+        style="@style/BtnAddStyle"
+        android:text="@string/borrow"/>
+
+</LinearLayout>

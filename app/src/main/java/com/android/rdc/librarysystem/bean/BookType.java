@@ -18,6 +18,10 @@ public class BookType extends DataSupport {
     private String remark;//备注
     private List<Book> bookList = new ArrayList<>();//同一种类型可对应多不同的本书
 
+    public BookType() {
+    }
+
+
     public int getId() {
         return id;
     }

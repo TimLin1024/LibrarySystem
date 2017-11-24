@@ -4,6 +4,14 @@ public class HomeItemBean {
     private String mItemName;
     private int mIconId;
 
+    public HomeItemBean() {
+    }
+
+    public HomeItemBean(String itemName, int iconId) {
+        mItemName = itemName;
+        mIconId = iconId;
+    }
+
     public String getItemName() {
         return mItemName;
     }
