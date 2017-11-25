@@ -21,7 +21,7 @@ public class Book extends DataSupport {
     private String remark;//备注
     //    private List<Reader> mReaderList = new ArrayList<>();
     private List<BookType> bookTypeList = new ArrayList<>();//同一本书可以有多种类型，比如 程序开发，移动开发
-    private List<Borrow> borrowList = new ArrayList<>();//同一本书可以对应多条借阅记录，因为可能有一些数是已经还了
+    private List<Borrow> borrowList = new ArrayList<>();//同一本书可以对应多条借阅记录，因为可能有一些书是已经还了
 
 
     public int getId() {

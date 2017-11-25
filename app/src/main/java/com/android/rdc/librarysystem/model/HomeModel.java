@@ -35,7 +35,7 @@ public class HomeModel {
         borrowBookItemBean.setItemName("借书");
         homeItemBeans.add(borrowBookItemBean);
 
-
+        homeItemBeans.add(new HomeItemBean("还书", R.drawable.ic_book));
         return homeItemBeans;
     }
 

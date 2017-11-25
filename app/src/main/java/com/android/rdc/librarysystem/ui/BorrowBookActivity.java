@@ -2,6 +2,7 @@ package com.android.rdc.librarysystem.ui;
 
 import android.database.Cursor;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 
 import com.android.rdc.librarysystem.R;
@@ -9,6 +10,7 @@ import com.android.rdc.librarysystem.base.BaseAddActivity;
 import com.android.rdc.librarysystem.bean.Book;
 import com.android.rdc.librarysystem.bean.Borrow;
 import com.android.rdc.librarysystem.bean.Reader;
+import com.android.rdc.librarysystem.bean.ReaderType;
 
 import org.litepal.crud.DataSupport;
 
@@ -20,6 +22,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class BorrowBookActivity extends BaseAddActivity {
+    private static final String TAG = "BorrowBookActivity";
     @BindView(R.id.tv_auto_complete_reader_id)
     AppCompatAutoCompleteTextView mTvAcReaderId;
     @BindView(R.id.tv_auto_complete_book_id)
@@ -75,26 +78,33 @@ public class BorrowBookActivity extends BaseAddActivity {
             showToast("抱歉，图书已经借出");
             return;
         }
-        Cursor cursor = DataSupport.findBySQL("select borrowCount " +
-                " from readertype" +
-                " where id in (" +
-                " select readertype_id" +
-                " from reader" +
-                " where id=" + reader.getId() + ")");
-        int count = 0;
+        Log.d(TAG, "saveBorrowData: " + reader.getReaderType());
+
+        DataSupport.select("readertype_id").where("id=?", String.valueOf(reader.getId())).find(Reader.class);
+//        DataSupport.select("borrowcount").where("")
+        //先找到 readertype_id,然后再根据 readertype_id 找出
+        Cursor cursor = DataSupport.findBySQL(
+                "select * " +
+                        " from reader " +
+                        " where id=" + reader.getId());
+        int maxBorrowCount = 4;//最大借书数量（本科生为 4 本，其他都大于该值）
         if (cursor != null && cursor.moveToFirst()) {
-            count = cursor.getInt(0);
+            int index = cursor.getColumnIndex("readertype_id");
+            if (index != -1) {
+                ReaderType readerType = DataSupport.find(ReaderType.class, cursor.getLong(index));
+                maxBorrowCount = readerType.getBorrowCount();
+            }
+            cursor.close();
         }
-        if (count <= reader.getCurrentBorrowCount()) {
+        if (maxBorrowCount <= reader.getCurrentBorrowCount()) {
             showToast("您的借书数量已达上限，请先还书");
             return;
         }
 
-        // TODO: 2017/11/24 0024 这里最好采用事务操作
         reader.increaseCurrentBorrowCount();//当前借书数目 + 1
         book.setBorrowed(true);
-        book.save();
-        reader.save();
+        book.update(book.getId());
+        reader.update(reader.getId());
         Borrow borrow = new Borrow();
         borrow.setBook(book);
         borrow.setReader(reader);

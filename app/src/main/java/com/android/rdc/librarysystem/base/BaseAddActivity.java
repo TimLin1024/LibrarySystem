@@ -22,6 +22,14 @@ public abstract class BaseAddActivity extends BaseToolbarActivity {
             Toast.makeText(this, "添加失败，请重试", Toast.LENGTH_SHORT).show();
         }
     }
+    protected void resolveSave(DataSupport dataSupport,String successMsg,String errMsg) {
+        if (dataSupport.save()) {
+            Toast.makeText(this, successMsg, Toast.LENGTH_SHORT).show();
+            finish();
+        } else {
+            Toast.makeText(this, errMsg, Toast.LENGTH_SHORT).show();
+        }
+    }
 
     protected int getNumberFromEt(EditText et, int defaultValue) {
         String str = getString(et);

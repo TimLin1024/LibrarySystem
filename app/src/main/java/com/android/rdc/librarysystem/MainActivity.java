@@ -13,6 +13,7 @@ import com.android.rdc.librarysystem.ui.AddBookTypeActivity;
 import com.android.rdc.librarysystem.ui.AddReaderActivity;
 import com.android.rdc.librarysystem.ui.AddReaderTypeActivity;
 import com.android.rdc.librarysystem.ui.BorrowBookActivity;
+import com.android.rdc.librarysystem.ui.ReturnBookActivity;
 
 import butterknife.BindView;
 
@@ -29,8 +30,8 @@ public class MainActivity extends BaseToolbarActivity {
 
     @Override
     protected void initData() {
-        getSupportActionBar().setDisplayShowHomeEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
         setTitle("图书管理系统");
     }
 
@@ -66,7 +67,7 @@ public class MainActivity extends BaseToolbarActivity {
                         startActivity(BorrowBookActivity.class);
                         break;
                     case 5:
-
+                        startActivity(ReturnBookActivity.class);
                         break;
                     case 6:
 

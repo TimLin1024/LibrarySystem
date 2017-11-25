@@ -29,6 +29,8 @@
         </activity>
         <activity android:name=".ui.BorrowBookActivity">
         </activity>
+        <activity android:name=".ui.ReturnBookActivity">
+        </activity>
     </application>
 
 </manifest>

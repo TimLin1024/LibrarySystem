@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.android.rdc.librarysystem.ui.BorrowBookActivity">
+    tools:context="com.android.rdc.librarysystem.ui.ReturnBookActivity">
 
     <include layout="@layout/include_toolbar"/>
 
@@ -24,7 +24,7 @@
 
     <android.support.design.widget.TextInputLayout
         style="@style/TextInputLayoutStyle"
-        android:hint="@string/borrow_book_number">
+        android:hint="@string/return_book_number">
 
         <android.support.v7.widget.AppCompatAutoCompleteTextView
             android:id="@+id/tv_auto_complete_book_id"
@@ -35,8 +35,8 @@
     </android.support.design.widget.TextInputLayout>
 
     <Button
-        android:id="@+id/btn_borrow"
+        android:id="@+id/btn_return"
         style="@style/BtnAddStyle"
-        android:text="@string/borrow"/>
+        android:text="@string/return_book"/>
 
 </LinearLayout>

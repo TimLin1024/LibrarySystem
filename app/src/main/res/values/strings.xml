@@ -27,4 +27,8 @@
     <string name="add_book">添加书籍</string>
     <string name="keyword">关键词（用逗号分隔）</string>
     <string name="borrow">借阅</string>
+    <string name="reader_card_number">借书证号</string>
+    <string name="borrow_book_number">借阅的图书编号</string>
+    <string name="return_book_number">归还的图书编号</string>
+    <string name="return_book">还书</string>
 </resources>
