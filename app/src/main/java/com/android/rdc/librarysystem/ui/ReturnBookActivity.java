@@ -1,5 +1,6 @@
 package com.android.rdc.librarysystem.ui;
 
+import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.widget.ArrayAdapter;
 
@@ -51,8 +52,10 @@ public class ReturnBookActivity extends BaseAddActivity {
         saveReturnData();
     }
 
+    /**
+     * 还书。先找到原来的记录增加借书日期，其他的内容不需要修改
+     */
     private void saveReturnData() {
-        // 检查书籍是否存在，是否已还
         Reader reader = DataSupport.find(Reader.class, (long) getNumberFromEt(mTvAutoCompleteReaderId, -1));
         if (reader == null) {
             showToast("该借书证号不存在，请检查");
@@ -67,29 +70,39 @@ public class ReturnBookActivity extends BaseAddActivity {
             showToast("该书在馆，无需归还");
             return;
         }
-        //先找到原来的记录填写上借书日期，其他的内容不变
+        //查找对应的记录
+        Borrow borrowRecord = getBorrowRecord(reader, book);
+        if (borrowRecord == null) {
+            showToast("找不到相应的借书记录");
+            return;
+        }
+        //进行保存
+        doSave(reader, book, borrowRecord);
+    }
+
+    private void doSave(Reader reader, Book book, Borrow borrowRecord) {
+        reader.decreaseCurrentBorrowCount();//当前借书数目 - 1
+        reader.update(reader.getId());
+        book.setBorrowed(false);//书籍标记为未借出状态
+        book.update(book.getId());
+        borrowRecord.setReturnDate(new Date());//归还日期
+        borrowRecord.setReader(reader);
+        borrowRecord.setBook(book);
+        resolveSave(borrowRecord, "还书成功", "还书失败");
+    }
+
+    @Nullable
+    private Borrow getBorrowRecord(Reader reader, Book book) {
         List<Borrow> borrowList = DataSupport
                 .where("book_id = ? and reader_id=?", String.valueOf(book.getId()), String.valueOf(reader.getId()))
                 .find(Borrow.class);
-
         Borrow borrowRecord = null;
         for (Borrow borrow : borrowList) {
             if (borrow.getReturnDate() == null) {//还书日期为空，说明未还
                 borrowRecord = borrow;
             }
         }
-        if (borrowRecord == null) {
-            showToast("找不到相应的借书记录");
-            return;
-        }
-        reader.decreaseCurrentBorrowCount();//当前借书数目 - 1
-        book.setBorrowed(false);//书籍标记为未借出状态
-        reader.update(reader.getId());
-        book.update(book.getId());
-        borrowRecord.setReturnDate(new Date());//归还日期
-        borrowRecord.setReader(reader);
-        borrowRecord.setBook(book);
-        borrowRecord.save();
+        return borrowRecord;
     }
 
     private void initBookIdAutoComplete() {

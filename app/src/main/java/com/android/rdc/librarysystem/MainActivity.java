@@ -13,6 +13,7 @@ import com.android.rdc.librarysystem.ui.AddBookTypeActivity;
 import com.android.rdc.librarysystem.ui.AddReaderActivity;
 import com.android.rdc.librarysystem.ui.AddReaderTypeActivity;
 import com.android.rdc.librarysystem.ui.BorrowBookActivity;
+import com.android.rdc.librarysystem.ui.QueryBookActivity;
 import com.android.rdc.librarysystem.ui.ReturnBookActivity;
 
 import butterknife.BindView;
@@ -70,7 +71,7 @@ public class MainActivity extends BaseToolbarActivity {
                         startActivity(ReturnBookActivity.class);
                         break;
                     case 6:
-
+                        startActivity(QueryBookActivity.class);
                         break;
                     case 7:
 

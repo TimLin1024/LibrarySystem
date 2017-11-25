@@ -2,7 +2,6 @@ package com.android.rdc.librarysystem.ui;
 
 import android.database.Cursor;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 
 import com.android.rdc.librarysystem.R;
@@ -63,31 +62,40 @@ public class BorrowBookActivity extends BaseAddActivity {
 
     private void saveBorrowData() {
         // 检查书籍是否存在，是否已被借出，检查读者的借书数量是否已经达到上限
-
         Reader reader = DataSupport.find(Reader.class, (long) getNumberFromEt(mTvAcReaderId, -1));
         if (reader == null) {
-            showToast("该借书证号不存在，请检查");
+            showToast("该借书证号不存在，请检查输入");
             return;
         }
         Book book = DataSupport.find(Book.class, (long) getNumberFromEt(mTvAutoCompleteBookId, -1));
         if (book == null) {
-            showToast("该图书编号不存在，请检查");
+            showToast("该图书编号不存在，请检查输入");
             return;
         }
         if (book.isBorrowed()) {
             showToast("抱歉，图书已经借出");
             return;
         }
-        Log.d(TAG, "saveBorrowData: " + reader.getReaderType());
 
-        DataSupport.select("readertype_id").where("id=?", String.valueOf(reader.getId())).find(Reader.class);
-//        DataSupport.select("borrowcount").where("")
-        //先找到 readertype_id,然后再根据 readertype_id 找出
+        int maxBorrowCount = getMaxBorrowCount(reader);
+        if (maxBorrowCount <= reader.getCurrentBorrowCount()) {
+            showToast("您的借书数量已达上限，请先还书");
+            return;
+        }
+
+        doSave(reader, book);
+    }
+
+    /**
+     * 获取该读者身份所允许的最大借书数量
+     * */
+    private int getMaxBorrowCount(Reader reader) {
+        int maxBorrowCount = 4;//最大借书数量（本科生为 4 本，其他都大于该值）
+        //先找到 readertype_id,然后再根据 readertype_id 找出该读者的最大借书数量
         Cursor cursor = DataSupport.findBySQL(
                 "select * " +
                         " from reader " +
                         " where id=" + reader.getId());
-        int maxBorrowCount = 4;//最大借书数量（本科生为 4 本，其他都大于该值）
         if (cursor != null && cursor.moveToFirst()) {
             int index = cursor.getColumnIndex("readertype_id");
             if (index != -1) {
@@ -96,15 +104,15 @@ public class BorrowBookActivity extends BaseAddActivity {
             }
             cursor.close();
         }
-        if (maxBorrowCount <= reader.getCurrentBorrowCount()) {
-            showToast("您的借书数量已达上限，请先还书");
-            return;
-        }
+        return maxBorrowCount;
+    }
 
+    private void doSave(Reader reader, Book book) {
         reader.increaseCurrentBorrowCount();//当前借书数目 + 1
+        reader.update(reader.getId());
         book.setBorrowed(true);
         book.update(book.getId());
-        reader.update(reader.getId());
+
         Borrow borrow = new Borrow();
         borrow.setBook(book);
         borrow.setReader(reader);

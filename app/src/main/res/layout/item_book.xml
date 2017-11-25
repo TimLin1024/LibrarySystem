@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:orientation="vertical"
+    android:paddingStart="10dp"
+    app:cardCornerRadius="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:orientation="vertical"
+        android:paddingStart="10dp">
+
+        <TextView
+            android:id="@+id/tv_book_name"
+            style="@style/Base.TextAppearance.AppCompat.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            tools:text="深入理解 Java 虚拟机"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.05dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/lightGray"/>
+
+        <TextView
+            android:id="@+id/tv_author"
+            style="@style/TvBookMsgStyle"
+            tools:text="作者：周志明"/>
+
+        <TextView
+            android:id="@+id/tv_publish_date_and_press"
+            style="@style/TvBookMsgStyle"
+            tools:text="出版：2011 初版/清华大学出版社"/>
+
+        <TextView
+            android:id="@+id/tv_is_in_library"
+            style="@style/TvBookMsgStyle"
+            android:textColor="@color/red"
+            tools:text="在馆：否"/>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

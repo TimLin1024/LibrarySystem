@@ -1,12 +1,19 @@
 package com.android.rdc.librarysystem.util;
 
+import android.annotation.SuppressLint;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DateUtil {
-    public static final String DAY_FORMATE = "yyyy-MM-dd HH:mm:ss";
+    public static final String DAY_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    @SuppressLint("SimpleDateFormat")
     private static SimpleDateFormat sMinuteFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    @SuppressLint("SimpleDateFormat")
     private static SimpleDateFormat sHourTimeFormat = new SimpleDateFormat("HH:mm");
+    @SuppressLint("SimpleDateFormat")
+    private static SimpleDateFormat sDayFormat = new SimpleDateFormat(DAY_FORMAT);
+
 
     private DateUtil() {
     }
@@ -16,12 +23,17 @@ public class DateUtil {
     }
 
     public static String hourTimeFormat(Date date) {
+        if (date == null) {
+            return "";
+        }
         return sHourTimeFormat.format(date);
     }
 
     public static String dayFormat(Date date) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        return simpleDateFormat.format(date);
+        if (date == null) {
+            return "";
+        }
+        return sDayFormat.format(date);
     }
 
 }

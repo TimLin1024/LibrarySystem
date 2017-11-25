@@ -25,4 +25,12 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+    <style name="TvBookMsgStyle">
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/lightblue</item>
+    </style>
+
 </resources>
