@@ -14,6 +14,7 @@ import com.android.rdc.amdroidutil.base.BaseToolbarActivity;
 import com.android.rdc.librarysystem.R;
 import com.android.rdc.librarysystem.adapter.BookRvAdapter;
 import com.android.rdc.librarysystem.bean.Book;
+import com.android.rdc.librarysystem.dao.RecordDao;
 
 import org.litepal.crud.DataSupport;
 
@@ -27,8 +28,11 @@ public class QueryBookActivity extends BaseToolbarActivity {
     @BindView(R.id.rv)
     RecyclerView mRv;
 
-    private BookRvAdapter mAdapter;
+    private BookRvAdapter mRvAdapter;
     private SearchView mSearchView;
+    private RecordDao mRecordDao;
+    private List<String> mRecordList = new ArrayList<>();
+    private ArrayAdapter<String> mArrayAdapter;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -40,32 +44,59 @@ public class QueryBookActivity extends BaseToolbarActivity {
     }
 
     private void initSearchView(MenuItem menuItem) {
+        mRecordDao = RecordDao.getInstance(getApplicationContext());
         mSearchView = (SearchView) menuItem.getActionView();
         mSearchView.setQueryHint("输入书名/作者等关键字");
+        initAutoCompleteTv();
+        setQueryListener();
+    }
+
+    private void initAutoCompleteTv() {
+        updateRecordList();
+        mArrayAdapter = new ArrayAdapter<>(this, R.layout.item_record, mRecordList);
         AutoCompleteTextView autoCompleteTextView = mSearchView.findViewById(R.id.search_src_text);
-        List<String> arrayList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            arrayList.add(String.valueOf(i));
-        }
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, arrayList);
-        autoCompleteTextView.setAdapter(arrayAdapter);
+        autoCompleteTextView.setAdapter(mArrayAdapter);
         autoCompleteTextView.setThreshold(0);
         autoCompleteTextView.setDropDownBackgroundResource(R.color.white);
         autoCompleteTextView.setOnItemClickListener((parent, view, position, id) -> {//这里需要自行设置 OnItemClickListener ，因为SearchView 中设置的监听器需要 CursorAdapter 而这里使用 的是 ArrayAdapter
-            mSearchView.setQuery(arrayList.get(position), true);
+            if (position == mRecordList.size() - 1) {//若点击的是底部项，删除所有记录
+                mRecordDao.deleteAllRecord();
+                //更新数据
+                updateRecordList();
+                mArrayAdapter.clear();//清空数据
+//                mArrayAdapter.notifyDataSetChanged();
+            } else {
+                mSearchView.setQuery(mRecordList.get(position), true);
+            }
         });
-        setQueryListener();
+    }
+
+    private void updateRecordList() {
+        mRecordList.clear();
+        mRecordList.addAll(mRecordDao.queryRecord());//查询记录列表
+        if (!mRecordList.isEmpty()) {
+            mRecordList.add("清除所有记录");
+        }
     }
 
     private void setQueryListener() {
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                //不插入重复记录
+                mRecordDao.deleteRecord(query);//删除旧记录（如果有的话）
+                mRecordDao.insert(query);//插入新的查询纪录
+
                 String condition = "%" + query + "%";
                 List<Book> bookList = DataSupport
                         .where("bookname like ? or authorname like ? or pressname like ? ", condition, condition, condition)//模糊查询书籍
                         .find(Book.class);
-                mAdapter.updateData(bookList);
+                if (bookList.isEmpty()) {
+                    showToast("未找到相关内容");
+                    mSearchView.setIconified(true);
+                } else {
+                    mRvAdapter.updateData(bookList);
+                }
                 return true;
             }
 
@@ -102,12 +133,12 @@ public class QueryBookActivity extends BaseToolbarActivity {
     @Override
     protected void initView() {
         setTitle("书籍查询");
-        mAdapter = new BookRvAdapter();
+        mRvAdapter = new BookRvAdapter();
         List<Book> bookList = DataSupport.findAll(Book.class);
-        mAdapter.updateData(bookList);
+        mRvAdapter.updateData(bookList);
         mRv.setLayoutManager(new LinearLayoutManager(this));
         mRv.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        mRv.setAdapter(mAdapter);
+        mRv.setAdapter(mRvAdapter);
     }
 
     @Override
