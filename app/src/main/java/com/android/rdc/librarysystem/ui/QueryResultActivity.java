@@ -46,6 +46,10 @@ public class QueryResultActivity extends BaseToolbarActivity {
     @Override
     protected void initData() {
         String query = getIntent().getStringExtra(KEY_QUERY_TEXT);
+        resolveQuery(query);
+    }
+
+    private void resolveQuery(String query) {
         String condition = "%" + query + "%";
         mSubTitle = query;
         //模糊查询书籍
