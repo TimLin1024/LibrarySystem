@@ -64,7 +64,6 @@ public class QueryBookActivity extends BaseToolbarActivity {
                 //更新数据
                 updateRecordList();
                 mArrayAdapter.clear();//清空数据
-//                mArrayAdapter.notifyDataSetChanged();
             } else {
                 mSearchView.setQuery(mRecordList.get(position), true);
             }
@@ -83,20 +82,7 @@ public class QueryBookActivity extends BaseToolbarActivity {
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                //不插入重复记录
-                mRecordDao.deleteRecord(query);//删除旧记录（如果有的话）
-                mRecordDao.insert(query);//插入新的查询纪录
-
-                String condition = "%" + query + "%";
-                List<Book> bookList = DataSupport
-                        .where("bookname like ? or authorname like ? or pressname like ? ", condition, condition, condition)//模糊查询书籍
-                        .find(Book.class);
-                if (bookList.isEmpty()) {
-                    showToast("未找到相关内容");
-                    mSearchView.setIconified(true);
-                } else {
-                    mRvAdapter.updateData(bookList);
-                }
+                resolveQuery(query);
                 return true;
             }
 
@@ -105,6 +91,13 @@ public class QueryBookActivity extends BaseToolbarActivity {
                 return false;
             }
         });
+    }
+
+    private void resolveQuery(String query) {
+        //不插入重复记录
+        mRecordDao.deleteRecord(query);//删除旧记录（如果有的话）
+        mRecordDao.insert(query);//插入新的查询纪录
+        startActivity(QueryResultActivity.newIntent(this, query));
     }
 
     @Override
@@ -133,8 +126,8 @@ public class QueryBookActivity extends BaseToolbarActivity {
     @Override
     protected void initView() {
         setTitle("书籍查询");
+        List<Book> bookList = DataSupport.findAll(Book.class);//默认显示所有的书籍
         mRvAdapter = new BookRvAdapter();
-        List<Book> bookList = DataSupport.findAll(Book.class);
         mRvAdapter.updateData(bookList);
         mRv.setLayoutManager(new LinearLayoutManager(this));
         mRv.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));

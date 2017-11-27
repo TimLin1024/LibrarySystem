@@ -28,95 +28,107 @@ public class Book extends DataSupport {
         return id;
     }
 
-    public void setId(int id) {
+    public Book setId(int id) {
         this.id = id;
+        return this;
     }
 
     public String getBookName() {
         return bookName;
     }
 
-    public void setBookName(String bookName) {
+    public Book setBookName(String bookName) {
         this.bookName = bookName;
+        return this;
     }
 
     public BookType getBookType() {
         return bookType;
     }
 
-    public void setBookType(BookType bookType) {
+    public Book setBookType(BookType bookType) {
         this.bookType = bookType;
+        return this;
     }
 
     public String getAuthorName() {
         return authorName;
     }
 
-    public void setAuthorName(String authorName) {
+    public Book setAuthorName(String authorName) {
         this.authorName = authorName;
+        return this;
     }
 
     public String getPressName() {
         return pressName;
     }
 
-    public void setPressName(String pressName) {
+    public Book setPressName(String pressName) {
         this.pressName = pressName;
+        return this;
     }
 
     public Date getPublishDate() {
         return publishDate;
     }
 
-    public void setPublishDate(Date publishDate) {
+    public Book setPublishDate(Date publishDate) {
         this.publishDate = publishDate;
+        return this;
     }
 
     public int getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public Book setPrice(int price) {
         this.price = price;
+        return this;
     }
 
     public int getPages() {
         return pages;
     }
 
-    public void setPages(int pages) {
+    public Book setPages(int pages) {
         this.pages = pages;
+        return this;
     }
 
     public String getKeyWord() {
         return keyWord;
     }
 
-    public void setKeyWord(String keyWord) {
+    public Book setKeyWord(String keyWord) {
         this.keyWord = keyWord;
+        return this;
     }
 
     public Date getEnrollDate() {
         return enrollDate;
     }
 
-    public void setEnrollDate(Date enrollDate) {
+    public Book setEnrollDate(Date enrollDate) {
         this.enrollDate = enrollDate;
+        return this;
     }
 
     public boolean isBorrowed() {
         return isBorrowed;
     }
 
-    public void setBorrowed(boolean borrowed) {
+    public Book setBorrowed(boolean borrowed) {
         isBorrowed = borrowed;
+        return this;
     }
 
     public String getRemark() {
         return remark;
     }
 
-    public void setRemark(String remark) {
+    public Book setRemark(String remark) {
         this.remark = remark;
+        return this;
     }
 }

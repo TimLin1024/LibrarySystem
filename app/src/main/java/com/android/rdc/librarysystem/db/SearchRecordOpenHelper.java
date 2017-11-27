@@ -6,9 +6,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.android.rdc.librarysystem.constant.Constants;
 
+/**
+ * 这里用 SQLLite 实现，不用 Litepal，复习下基础知识
+ * */
 public class SearchRecordOpenHelper extends SQLiteOpenHelper {
-
-
     public SearchRecordOpenHelper(Context context) {
         super(context, "record.db", null, 1);
     }

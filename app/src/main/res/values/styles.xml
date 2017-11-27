@@ -29,9 +29,10 @@
     <style name="TvBookMsgStyle">
         <item name="android:paddingTop">3dp</item>
         <item name="android:paddingBottom">3dp</item>
+        <item name="android:paddingLeft">10dp</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/lightblue</item>
+        <item name="android:textColor">#83c6c2</item>
     </style>
 
 </resources>

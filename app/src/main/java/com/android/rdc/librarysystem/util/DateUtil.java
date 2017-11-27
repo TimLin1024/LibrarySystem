@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DateUtil {
-    public static final String DAY_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    public static final String DAY_FORMAT = "yyyy-MM-dd";
     @SuppressLint("SimpleDateFormat")
     private static SimpleDateFormat sMinuteFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     @SuppressLint("SimpleDateFormat")

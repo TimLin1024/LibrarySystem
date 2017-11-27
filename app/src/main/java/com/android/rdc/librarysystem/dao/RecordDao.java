@@ -11,6 +11,9 @@ import com.android.rdc.librarysystem.db.SearchRecordOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 这里用 SQLLite 实现，不用 Litepal，复习下基础知识
+ */
 public class RecordDao {
     private volatile static RecordDao sRecordDao;
     private SQLiteOpenHelper mHelper;
@@ -32,7 +35,7 @@ public class RecordDao {
 
     /**
      * 插入记录
-     * */
+     */
     public void insert(String record) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(Constants.SEARCH_RECORD_COLUMN_NAME, record);

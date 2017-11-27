@@ -31,88 +31,99 @@ public class Reader extends DataSupport {
         return id;
     }
 
-    public void setId(int id) {
+    public Reader setId(int id) {
         this.id = id;
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public Reader setName(String name) {
         this.name = name;
+        return this;
     }
 
     public ReaderType getReaderType() {
         return readerType;
     }
 
-    public void setReaderType(ReaderType readerType) {
+    public Reader setReaderType(ReaderType readerType) {
         this.readerType = readerType;
+        return this;
     }
 
     public String getCompany() {
         return company;
     }
 
-    public void setCompany(String company) {
+    public Reader setCompany(String company) {
         this.company = company;
+        return this;
     }
 
     public String getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public Reader setGender(String gender) {
         this.gender = gender;
+        return this;
     }
 
     public String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public Reader setAddress(String address) {
         this.address = address;
+        return this;
     }
 
     public String getPhoneNum() {
         return phoneNum;
     }
 
-    public void setPhoneNum(String phoneNum) {
+    public Reader setPhoneNum(String phoneNum) {
         this.phoneNum = phoneNum;
+        return this;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public Reader setEmail(String email) {
         this.email = email;
+        return this;
     }
 
     public Date getEnrollDate() {
         return enrollDate;
     }
 
-    public void setEnrollDate(Date enrollDate) {
+    public Reader setEnrollDate(Date enrollDate) {
         this.enrollDate = enrollDate;
+        return this;
     }
 
     public String getRemark() {
         return remark;
     }
 
-    public void setRemark(String remark) {
+    public Reader setRemark(String remark) {
         this.remark = remark;
+        return this;
     }
 
     public int getCurrentBorrowCount() {
         return currentBorrowCount;
     }
 
-    public void setCurrentBorrowCount(int currentBorrowCount) {
+    public Reader setCurrentBorrowCount(int currentBorrowCount) {
         this.currentBorrowCount = currentBorrowCount;
+        return this;
     }
 
     public void increaseCurrentBorrowCount() {

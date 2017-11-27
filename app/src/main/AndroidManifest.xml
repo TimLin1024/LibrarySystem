@@ -33,6 +33,8 @@
         </activity>
         <activity android:name=".ui.QueryBookActivity">
         </activity>
+        <activity android:name=".ui.QueryResultActivity">
+        </activity>
     </application>
 
 </manifest>
