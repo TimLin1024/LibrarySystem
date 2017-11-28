@@ -71,6 +71,7 @@ public class AddBookActivity extends BaseAddActivity {
     @Override
     protected void initListener() {
         List<String> stringList = new ArrayList<>();
+        stringList.add("请选择");
         for (BookType bookType : mBookTypeList) {
             stringList.add(bookType.getTypeName());
         }
@@ -88,21 +89,45 @@ public class AddBookActivity extends BaseAddActivity {
                 showPickerView(mTvEnrollDate);
                 break;
             case R.id.btn_add_book:
-                Book book = new Book();
-                book.setBookName(getString(mEtBookName));
-                book.setBookType(mBookTypeList.get(mSpBookType.getSelectedItemPosition()));
-                book.setAuthorName(getString(mEtAuthorName));
-                book.setPressName(getString(mEtPressName));
-                book.setPublishDate(mPublishDate);
-                book.setPrice(getNumberFromEt(mEtPrice, 0));
-                book.setPages(getNumberFromEt(mEtPageNum, 0));
-                book.setKeyWord(getString(mEtKeywords));
-                book.setEnrollDate(mEnrollDate);
-                book.setBorrowed(false);//刚登记入库，默认未借出
-                book.setRemark(getString(mEtRemark));
-                resolveSave(book);
+                saveBook();
                 break;
         }
+    }
+
+    private void saveBook() {
+        if (mSpBookType.getSelectedItemPosition() <= 0) {
+            showToast("请选择书籍类型");
+            return;
+        }
+        if (nullCheck(mEtBookName, "书籍名称")
+                || nullCheck(mEtAuthorName, "作者")
+                || nullCheck(mEtPressName, "出版社")
+                ) {
+            return;
+        }
+        if (mPublishDate == null) {
+            showToast("请选择出版日期");
+            return;
+        }
+        if (mEnrollDate == null) {
+            showToast("请选择登记日期");
+            return;
+        }
+
+        Book book = new Book();
+        book.setBookName(getString(mEtBookName));
+        book.setBookType(mBookTypeList.get(mSpBookType.getSelectedItemPosition() - 1));//这里要减一，因为前面手动添加了一个提示项
+        book.setAuthorName(getString(mEtAuthorName));
+        book.setPressName(getString(mEtPressName));
+        book.setPublishDate(mPublishDate);
+        book.setPrice(getNumberFromEt(mEtPrice, 0));
+        book.setPages(getNumberFromEt(mEtPageNum, 0));
+        book.setKeyWord(getString(mEtKeywords));
+        book.setEnrollDate(mEnrollDate);
+        book.setBorrowed(false);//刚登记入库，默认未借出
+        book.setRemark(getString(mEtRemark));
+        resolveSave(book);
+        return;
     }
 
     private void showPickerView(TextView tv) {

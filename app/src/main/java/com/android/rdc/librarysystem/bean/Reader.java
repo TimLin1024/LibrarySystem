@@ -13,16 +13,19 @@ import java.util.List;
 public class Reader extends DataSupport {
 
     private int id;//编号
+    @Column(nullable = false)
     private String name;//读者姓名
+    @Column(nullable = false)
     private ReaderType readerType;//读者类型
     private String company;//工作单位
     private String gender;//性别
     private String address;//家庭地址
+    @Column(nullable = false)
     private String phoneNum;//电话号码
     private String email;//邮箱
+    @Column(nullable = false)
     private Date enrollDate;//登记日期
     private String remark;//备注
-    @Column(defaultValue = "0")
     private int currentBorrowCount;//当前借阅的书籍数目
     //    private List<Book> mBookList = new ArrayList<>();
     private List<Borrow> borrowList = new ArrayList<>();//同一读者可以对应多条借阅记录，可以借阅多种

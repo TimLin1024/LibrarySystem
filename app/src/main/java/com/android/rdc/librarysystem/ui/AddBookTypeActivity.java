@@ -13,9 +13,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
 /**
  * 添加书籍类型
- * */
+ */
 public class AddBookTypeActivity extends BaseAddActivity {
 
     @BindView(R.id.et_book_category_name)
@@ -47,6 +48,11 @@ public class AddBookTypeActivity extends BaseAddActivity {
 
     @OnClick(R.id.btn_add_book_type)
     public void onViewClicked() {
+        if (nullCheck(mEtBookCategoryName, "书籍类型")) {
+            return;
+        }
+
+        //查询同名的书籍类型列表
         List<BookType> bookTypeIdList = DataSupport
                 .select("id")
                 .where("typeName=?", getString(mEtBookCategoryName))
@@ -59,6 +65,7 @@ public class AddBookTypeActivity extends BaseAddActivity {
 
         if (!bookTypeIdList.isEmpty()) {
             new AlertDialog.Builder(this)
+                    //书籍类型检测防止重名
                     .setMessage("您指定的书籍类型已存在，是否对其内容进行更新？")
                     .setPositiveButton("确定", (dialog, which) -> {
                         bookType.update(bookTypeIdList.get(0).getId());//对内容进行更新

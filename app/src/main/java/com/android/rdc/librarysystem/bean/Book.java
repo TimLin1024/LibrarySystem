@@ -1,5 +1,6 @@
 package com.android.rdc.librarysystem.bean;
 
+import org.litepal.annotation.Column;
 import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
@@ -8,14 +9,20 @@ import java.util.List;
 
 public class Book extends DataSupport {
     private int id;//编号
+    @Column(nullable = false)
     private String bookName;//书名
+    @Column(nullable = false)
     private BookType bookType;//图书类型
+    @Column(nullable = false)
     private String authorName;//作者名字
+    @Column(nullable = false)
     private String pressName;//出版社名称
+    @Column(nullable = false)
     private Date publishDate;//出版日期
     private int price;//价格
     private int pages;//页数
     private String keyWord;//关键词
+    @Column(nullable = false)
     private Date enrollDate;//登记日期
     private boolean isBorrowed;//是否借出
     private String remark;//备注

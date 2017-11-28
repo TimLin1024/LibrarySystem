@@ -76,10 +76,11 @@ public class AddReaderActivity extends BaseAddActivity {
     @Override
     protected void initListener() {
         List<String> typeNameList = new ArrayList<>();
+        typeNameList.add("请选择");
         for (ReaderType readerType : mReaderTypeList) {
             typeNameList.add(readerType.getTypeName());
         }
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, typeNameList);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, typeNameList);
         mSpReaderType.setAdapter(arrayAdapter);
     }
 
@@ -105,7 +106,24 @@ public class AddReaderActivity extends BaseAddActivity {
                 .show();
     }
 
+
     private void insertReader() {
+        if (mSpReaderType.getSelectedItemPosition() <= 0) {
+            showToast("请选择读者类型");
+            return;
+        }
+
+        if (nullCheck(mEtReaderName, "读者姓名")
+                || nullCheck(mEtPhone, "联系方式")) {
+            return;
+        }
+
+        if (mEnrollDate == null) {
+            showToast("请选择登记日期");
+            return;
+        }
+
+
         Reader reader = new Reader();
         reader.setName(getString(mEtReaderName));
         reader.setPhoneNum(getString(mEtPhone));
@@ -116,7 +134,7 @@ public class AddReaderActivity extends BaseAddActivity {
         reader.setGender(mRbMan.isChecked() ? "男" : "女");
         reader.setRemark(getString(mEtRemark));
 
-        reader.setReaderType(mReaderTypeList.get(mSpReaderType.getSelectedItemPosition()));
+        reader.setReaderType(mReaderTypeList.get(mSpReaderType.getSelectedItemPosition() - 1));//这里要减一，因为前面手动添加了一个提示项
         resolveSave(reader);
     }
 }

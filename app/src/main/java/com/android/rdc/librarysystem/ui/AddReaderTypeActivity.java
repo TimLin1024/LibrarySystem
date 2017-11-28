@@ -65,15 +65,25 @@ public class AddReaderTypeActivity extends BaseAddActivity {
                 showDatePicker();
                 break;
             case R.id.btn_add_reader_type:
-                ReaderType readerType = new ReaderType();
-                readerType.setTypeName(getString(mEtReaderCategoryName));
-                readerType.setBorrowCount(getNumberFromEt(mEtBorrowCount, 5));//若为空 默认为 5 本
-                readerType.setBorrowMon(getNumberFromEt(mEtBorrowLen, 1));//如果为空默认为 1 个月
-                readerType.setRemark(getString(mEtRemark));
-                readerType.setExpDate(mExpDate);
-                resolveSave(readerType);
+                saveReaderType();
                 break;
         }
+    }
+
+    private void saveReaderType() {
+        if (nullCheck(mEtReaderCategoryName, "读者类型名称")
+                || nullCheck(mEtBorrowCount, "最大借书数量")
+                || nullCheck(mEtBorrowLen, "借书期限")) {
+            return;
+        }
+
+        ReaderType readerType = new ReaderType();
+        readerType.setTypeName(getString(mEtReaderCategoryName));
+        readerType.setBorrowCount(getNumberFromEt(mEtBorrowCount, 5));//若为空 默认为 5 本
+        readerType.setBorrowMon(getNumberFromEt(mEtBorrowLen, 1));//如果为空默认为 1 个月
+        readerType.setRemark(getString(mEtRemark));
+        readerType.setExpDate(mExpDate);
+        resolveSave(readerType,"新读者类型添加成功","添加失败，请重试");
     }
 
     protected void showDatePicker() {

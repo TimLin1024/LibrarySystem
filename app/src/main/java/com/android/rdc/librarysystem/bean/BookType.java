@@ -12,7 +12,7 @@ import java.util.List;
 public class BookType extends DataSupport {
 
     private int id;
-    @Column(unique = true)
+    @Column(unique = true,nullable = false)
     private String typeName;//名字
     private String keyWord;//关键词
     private String remark;//备注

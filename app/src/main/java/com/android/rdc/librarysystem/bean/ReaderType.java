@@ -12,9 +12,11 @@ import java.util.List;
  */
 public class ReaderType extends DataSupport {
     private int id;
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String typeName;//本科生 研究生 博士生 教师
+    @Column(nullable = false)
     private int borrowCount;
+    @Column(nullable = false)
     private int borrowMon;//借书的期限
     private Date expDate;//过期期限，也就是有效期
     private String remark;//备注

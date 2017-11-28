@@ -22,7 +22,8 @@ public abstract class BaseAddActivity extends BaseToolbarActivity {
             Toast.makeText(this, "添加失败，请重试", Toast.LENGTH_SHORT).show();
         }
     }
-    protected void resolveSave(DataSupport dataSupport,String successMsg,String errMsg) {
+
+    protected void resolveSave(DataSupport dataSupport, String successMsg, String errMsg) {
         if (dataSupport.save()) {
             Toast.makeText(this, successMsg, Toast.LENGTH_SHORT).show();
             finish();
@@ -34,5 +35,13 @@ public abstract class BaseAddActivity extends BaseToolbarActivity {
     protected int getNumberFromEt(EditText et, int defaultValue) {
         String str = getString(et);
         return TextUtils.isEmpty(str) ? defaultValue : Integer.parseInt(str);
+    }
+
+    protected boolean nullCheck(EditText et, String msg) {
+        if (TextUtils.isEmpty(getString(et))) {
+            showToast(msg + "不能为空");
+            return true;
+        }
+        return false;
     }
 }

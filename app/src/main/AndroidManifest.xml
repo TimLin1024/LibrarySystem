@@ -35,6 +35,8 @@
         </activity>
         <activity android:name=".ui.QueryResultActivity">
         </activity>
+        <activity android:name=".ui.StatisticsAnalysisActivity">
+        </activity>
     </application>
 
 </manifest>
