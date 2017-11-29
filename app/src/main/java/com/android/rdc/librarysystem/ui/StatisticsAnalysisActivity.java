@@ -5,8 +5,11 @@ import android.widget.TextView;
 
 import com.android.rdc.amdroidutil.base.BaseToolbarActivity;
 import com.android.rdc.librarysystem.R;
+import com.android.rdc.librarysystem.bean.BookBorrowStatisticBean;
 import com.android.rdc.librarysystem.bean.BookType;
 import com.android.rdc.librarysystem.bean.BookTypeStatisticBean;
+import com.android.rdc.librarysystem.ui.widget.PieData;
+import com.android.rdc.librarysystem.ui.widget.PieView;
 
 import org.litepal.crud.DataSupport;
 
@@ -15,11 +18,14 @@ import java.util.List;
 
 import butterknife.BindView;
 
+/**
+ * 图书统计分析
+ */
 public class StatisticsAnalysisActivity extends BaseToolbarActivity {
-
-
     @BindView(R.id.tv_msg)
     TextView mTvMsg;
+    @BindView(R.id.pie_view)
+    PieView mPieView;
 
     //图书类型比例  图书表中 group by BookType
     //库存比例 图书表中 group by isBorrow
@@ -30,17 +36,37 @@ public class StatisticsAnalysisActivity extends BaseToolbarActivity {
 
     @Override
     protected void initData() {
-        getBookTypeStatistic();
         getStorageStatistic();
+        List<BookTypeStatisticBean> typeStatisticBeanList = getBookTypeStatistic();
+        List<PieData> pieDataList = new ArrayList<>();
+        for (BookTypeStatisticBean bookTypeStatisticBean : typeStatisticBeanList) {
+            pieDataList.add(new PieData(bookTypeStatisticBean.getBookTypeName(), bookTypeStatisticBean.getCount()));
+        }
+        mPieView.setPieDataList(pieDataList);
     }
 
     private void getStorageStatistic() {
-        Cursor cursor = DataSupport.findBySQL("select count(id) ,isborrowed  是否出借 from book group by isborrowed");
-        // TODO: 2017/11/27 0027 区分出借与否
-//        cus
+        Cursor cursor = DataSupport.findBySQL("select isborrowed,count(id) 是否出借 from book group by isborrowed");
+        List<BookBorrowStatisticBean> beanList = new ArrayList<>();
+        if (cursor != null && cursor.moveToFirst()) {
+            beanList.add(getBorrowStatisticBean(cursor));
+            while (cursor.moveToNext()) {
+                beanList.add(getBorrowStatisticBean(cursor));
+            }
+        }
+        if (cursor != null) {
+            cursor.close();
+        }
     }
 
-    private void getBookTypeStatistic() {
+    private BookBorrowStatisticBean getBorrowStatisticBean(Cursor cursor) {
+        BookBorrowStatisticBean bookBorrowStatisticBean = new BookBorrowStatisticBean();
+        bookBorrowStatisticBean.setBorrow(cursor.getInt(0) == 1);
+        bookBorrowStatisticBean.setCount(cursor.getInt(1));
+        return bookBorrowStatisticBean;
+    }
+
+    private List<BookTypeStatisticBean> getBookTypeStatistic() {
         //执行 select 的结果是 List ，无法进行 count？
         Cursor cursor = DataSupport.findBySQL("select booktype_id,count(id)" +
                 "from book " +
@@ -60,6 +86,7 @@ public class StatisticsAnalysisActivity extends BaseToolbarActivity {
             stringBuilder.append(bean.toString()).append("\n");
         }
         mTvMsg.setText(stringBuilder.toString());
+        return bookTypeStatisticBeanList;
     }
 
     private BookTypeStatisticBean getStatisticBean(Cursor cursor) {
@@ -72,7 +99,7 @@ public class StatisticsAnalysisActivity extends BaseToolbarActivity {
 
     @Override
     protected void initView() {
-
+        setTitle("统计分析");
     }
 
     @Override

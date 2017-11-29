@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context="com.android.rdc.librarysystem.ui.StatisticsAnalysisActivity">
 
@@ -16,4 +17,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         tools:text="统计说明"/>
+
+    <com.android.rdc.librarysystem.ui.widget.PieView
+        android:id="@+id/pie_view"
+        android:background="@color/lightGray"
+        android:layout_width="300dp"
+        android:layout_height="300dp"/>
 </LinearLayout>
