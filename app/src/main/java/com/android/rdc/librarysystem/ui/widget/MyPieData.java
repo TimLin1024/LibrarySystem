@@ -1,6 +1,6 @@
 package com.android.rdc.librarysystem.ui.widget;
 
-public class PieData {
+public class MyPieData {
     //用户关心的数据
     private String mName;
     private float mValue;
@@ -10,7 +10,7 @@ public class PieData {
     private int mColor;//颜色
     private float mAngle;//角度
 
-    public PieData(String name, float value) {
+    public MyPieData(String name, float value) {
         mName = name;
         mValue = value;
     }

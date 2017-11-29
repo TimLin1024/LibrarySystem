@@ -9,7 +9,6 @@ public class BookTypeStatisticBean {
         return mBookTypeName;
     }
     public void setBookTypeName(String bookTypeName) {
-
         mBookTypeName = bookTypeName;
     }
 

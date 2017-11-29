@@ -12,11 +12,10 @@ import java.util.List;
 
 public class PieView extends View {
     private Paint mPaint = new Paint();
-    private List<PieData> mPieDataList;
+    private List<MyPieData> mPieDataList;
     private float mStartAngle;
     private int mWidth;
     private int mHeight;
-    private float mCurrentAngle;
     private float mRadius;
     private RectF mRectF;
     // 颜色表 (注意: 此处定义颜色使用的是ARGB，带Alpha通道的)
@@ -56,28 +55,32 @@ public class PieView extends View {
             return;
         }
         float currentAngle = mStartAngle;
-        float swepAngle;
+        float sweepAngle;
         canvas.translate(mWidth / 2, mHeight / 2);//将画布坐标原点移动
-        for (PieData pieData : mPieDataList) {
+        for (MyPieData pieData : mPieDataList) {
             mPaint.setColor(pieData.getColor());
-            swepAngle = pieData.getPercentage() * 360;
-            canvas.drawArc(mRectF, currentAngle, swepAngle, true, mPaint);
-            currentAngle += swepAngle;
+            sweepAngle = pieData.getPercentage() * 360;
+            canvas.drawArc(mRectF, currentAngle, sweepAngle, true, mPaint);
+            currentAngle += sweepAngle;
         }
     }
 
-    public void setPieDataList(List<PieData> pieDataList) {
+    public void setStartAngle(float startAngle) {
+        mStartAngle = startAngle;
+    }
+
+    public void setPieDataList(List<MyPieData> pieDataList) {
         mPieDataList = pieDataList;
         resolveDataList(pieDataList);
     }
 
-    private void resolveDataList(List<PieData> pieDataList) {
+    private void resolveDataList(List<MyPieData> pieDataList) {
         float sum = 0;
-        for (PieData pieData : pieDataList) {
+        for (MyPieData pieData : pieDataList) {
             sum += pieData.getValue();
         }
         for (int i = 0; i < pieDataList.size(); i++) {
-            PieData pieData = pieDataList.get(i);
+            MyPieData pieData = pieDataList.get(i);
             pieData.setPercentage(pieData.getValue() / sum);
             pieData.setColor(mColors[i % mColors.length]);
         }

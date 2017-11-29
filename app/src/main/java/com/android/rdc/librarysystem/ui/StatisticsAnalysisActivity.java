@@ -1,34 +1,33 @@
 package com.android.rdc.librarysystem.ui;
 
-import android.database.Cursor;
 import android.widget.TextView;
 
 import com.android.rdc.amdroidutil.base.BaseToolbarActivity;
 import com.android.rdc.librarysystem.R;
-import com.android.rdc.librarysystem.bean.BookBorrowStatisticBean;
-import com.android.rdc.librarysystem.bean.BookType;
-import com.android.rdc.librarysystem.bean.BookTypeStatisticBean;
-import com.android.rdc.librarysystem.ui.widget.PieData;
-import com.android.rdc.librarysystem.ui.widget.PieView;
-
-import org.litepal.crud.DataSupport;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.android.rdc.librarysystem.contract.StatisticContract;
+import com.android.rdc.librarysystem.presenter.StatisticPresenter;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.PieData;
 
 import butterknife.BindView;
 
 /**
  * 图书统计分析
+ * 图书类型比例  图书表中 group by BookType
+ * 库存比例 图书表中 group by isBorrow
  */
-public class StatisticsAnalysisActivity extends BaseToolbarActivity {
+public class StatisticsAnalysisActivity extends BaseToolbarActivity implements StatisticContract.View {
+
     @BindView(R.id.tv_msg)
     TextView mTvMsg;
-    @BindView(R.id.pie_view)
-    PieView mPieView;
+    @BindView(R.id.pie_chart_book_type)
+    PieChart mPieChartBookType;
+    @BindView(R.id.pie_chart_store_info)
+    PieChart mPieChartStoreInfo;
 
-    //图书类型比例  图书表中 group by BookType
-    //库存比例 图书表中 group by isBorrow
+    private StatisticContract.Presenter mPresenter;
+
     @Override
     protected int setLayoutResID() {
         return R.layout.activity_statistics_analysis;
@@ -36,66 +35,21 @@ public class StatisticsAnalysisActivity extends BaseToolbarActivity {
 
     @Override
     protected void initData() {
-        getStorageStatistic();
-        List<BookTypeStatisticBean> typeStatisticBeanList = getBookTypeStatistic();
-        List<PieData> pieDataList = new ArrayList<>();
-        for (BookTypeStatisticBean bookTypeStatisticBean : typeStatisticBeanList) {
-            pieDataList.add(new PieData(bookTypeStatisticBean.getBookTypeName(), bookTypeStatisticBean.getCount()));
-        }
-        mPieView.setPieDataList(pieDataList);
+        mPresenter = new StatisticPresenter(this);
     }
 
-    private void getStorageStatistic() {
-        Cursor cursor = DataSupport.findBySQL("select isborrowed,count(id) 是否出借 from book group by isborrowed");
-        List<BookBorrowStatisticBean> beanList = new ArrayList<>();
-        if (cursor != null && cursor.moveToFirst()) {
-            beanList.add(getBorrowStatisticBean(cursor));
-            while (cursor.moveToNext()) {
-                beanList.add(getBorrowStatisticBean(cursor));
-            }
-        }
-        if (cursor != null) {
-            cursor.close();
-        }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPresenter.onResume();//默认会去获取数据
     }
 
-    private BookBorrowStatisticBean getBorrowStatisticBean(Cursor cursor) {
-        BookBorrowStatisticBean bookBorrowStatisticBean = new BookBorrowStatisticBean();
-        bookBorrowStatisticBean.setBorrow(cursor.getInt(0) == 1);
-        bookBorrowStatisticBean.setCount(cursor.getInt(1));
-        return bookBorrowStatisticBean;
+    @Override
+    protected void onDestroy() {
+        mPresenter.onDestroy();//默认实现会解除绑定
+        super.onDestroy();
     }
 
-    private List<BookTypeStatisticBean> getBookTypeStatistic() {
-        //执行 select 的结果是 List ，无法进行 count？
-        Cursor cursor = DataSupport.findBySQL("select booktype_id,count(id)" +
-                "from book " +
-                "group by booktype_id");
-        //获取类型名字，展示类型数量
-        List<BookTypeStatisticBean> bookTypeStatisticBeanList = new ArrayList<>();
-        if (cursor != null && cursor.moveToFirst()) {
-            bookTypeStatisticBeanList.add(getStatisticBean(cursor));
-            while (cursor.moveToNext()) {
-                bookTypeStatisticBeanList.add(getStatisticBean(cursor));
-            }
-        }
-        cursor.close();
-
-        StringBuilder stringBuilder = new StringBuilder("比例信息：\n");
-        for (BookTypeStatisticBean bean : bookTypeStatisticBeanList) {
-            stringBuilder.append(bean.toString()).append("\n");
-        }
-        mTvMsg.setText(stringBuilder.toString());
-        return bookTypeStatisticBeanList;
-    }
-
-    private BookTypeStatisticBean getStatisticBean(Cursor cursor) {
-        BookTypeStatisticBean bean = new BookTypeStatisticBean();
-        bean.setBookTypeId(cursor.getLong(0));//书籍类型 id
-        bean.setCount(cursor.getInt(1));//数量
-        bean.setBookTypeName(DataSupport.find(BookType.class, bean.getBookTypeId()).getTypeName());//类型名
-        return bean;
-    }
 
     @Override
     protected void initView() {
@@ -104,6 +58,52 @@ public class StatisticsAnalysisActivity extends BaseToolbarActivity {
 
     @Override
     protected void initListener() {
+
+    }
+
+    @Override
+    public void updateBookTypeChart(PieData pieData) {
+        mPieChartBookType.getDescription().setEnabled(true);
+//        Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "OpenSans-Light.ttf");
+//        mPieChartBookType.setCenterTextTypeface(tf);
+//        mPieChartBookType.setCenterText(generateCenterText());
+//        mPieChartBookType.setCenterTextSize(10f);
+//        mPieChartBookType.setCenterTextTypeface(tf);
+
+        // radius of the center hole in percent of maximum radius
+        mPieChartBookType.setHoleRadius(45f);//中间空白圆的半径
+        mPieChartBookType.setTransparentCircleRadius(50f);//透明圆的半径
+
+        Legend legend = mPieChartBookType.getLegend();//获取图标的图例
+        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);//设置图例的垂直对齐
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);//设置图例的水平对齐
+        legend.setOrientation(Legend.LegendOrientation.VERTICAL);//设置图例的方向
+        legend.setDrawInside(false);
+        mPieChartBookType.setData(pieData);
+    }
+
+    @Override
+    public void updateStoreInfoChart(PieData pieData) {
+        mPieChartStoreInfo.getDescription().setEnabled(true);
+        mPieChartStoreInfo.setHoleRadius(45f);
+        mPieChartStoreInfo.setTransparentCircleRadius(47f);
+
+        Legend legend = mPieChartStoreInfo.getLegend();
+        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+        legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        legend.setDrawInside(true);
+        mPieChartStoreInfo.setData(pieData);
+    }
+
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
 
     }
 

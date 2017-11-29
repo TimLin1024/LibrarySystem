@@ -69,10 +69,10 @@ public class DefaultDataModel {
         readerTypeList.add(teacherType);
 
         ReaderType otherType = new ReaderType();
-        teacherType.setTypeName("其他");
-        teacherType.setExpDate(calendar.getTime());
-        teacherType.setBorrowMon(1);
-        teacherType.setBorrowCount(2);
+        otherType.setTypeName("其他");
+        otherType.setExpDate(calendar.getTime());
+        otherType.setBorrowMon(1);
+        otherType.setBorrowCount(2);
         readerTypeList.add(otherType);
         return readerTypeList;
     }
@@ -161,6 +161,16 @@ public class DefaultDataModel {
                 .setPressName("文艺出版社")
                 .setBookType(bookTypeList.get(random.nextInt(bookTypeList.size())));
         bookList.add(book3);
+
+        calendar.set(2012, 3, 15);
+        Book book4 = new Book()
+                .setBookName("大学之路")
+                .setAuthorName("吴军")
+                .setPublishDate(calendar.getTime())
+                .setEnrollDate(new Date())
+                .setPressName("人民邮电出版社")
+                .setBookType(bookTypeList.get(random.nextInt(bookTypeList.size())));
+        bookList.add(book4);
         return bookList;
     }
 
