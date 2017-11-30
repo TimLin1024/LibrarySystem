@@ -5,7 +5,7 @@
     <string name="reader_type">读者类型</string>
     <string name="man">男</string>
     <string name="woman">女</string>
-    <string name="enroll_date">单击选择登记日期</string>
+    <string name="enroll_date">选择登记日期</string>
     <string name="home_address">家庭住址</string>
     <string name="email">邮箱</string>
     <string name="remark">备注信息</string>
@@ -17,7 +17,7 @@
     <string name="expire_date">有效值至</string>
     <string name="add_reader_type">新建读者类型</string>
     <string name="add_book_type">新建书籍类型</string>
-    <string name="publish_date">出版日期</string>
+    <string name="publish_date">选择出版日期</string>
     <string name="price">价格(RMB)</string>
     <string name="page_num">页数</string>
     <string name="book_name">书名</string>
@@ -33,4 +33,6 @@
     <string name="return_book">还书</string>
     <string name="not_found">未找到相关内容</string>
     <string name="modify">修改</string>
+    <string name="company">工作单位</string>
+    <string name="gender">性别：</string>
 </resources>

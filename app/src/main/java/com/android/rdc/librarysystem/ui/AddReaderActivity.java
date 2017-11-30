@@ -2,7 +2,6 @@ package com.android.rdc.librarysystem.ui;
 
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
@@ -52,8 +51,6 @@ public class AddReaderActivity extends BaseAddActivity {
     EditText mEtEmail;
     @BindView(R.id.et_remark)
     EditText mEtRemark;
-    @BindView(R.id.btn_add_reader)
-    Button mBtnAddReader;
 
     private Date mEnrollDate;
     private List<ReaderType> mReaderTypeList;
@@ -88,7 +85,7 @@ public class AddReaderActivity extends BaseAddActivity {
     public void onViewClicked(View v) {
         switch (v.getId()) {
             case R.id.btn_add_reader:
-                insertReader();
+                saveReader();
                 break;
             case R.id.tv_enroll_date:
                 showDatePicker();
@@ -107,7 +104,7 @@ public class AddReaderActivity extends BaseAddActivity {
     }
 
 
-    private void insertReader() {
+    private void saveReader() {
         if (mSpReaderType.getSelectedItemPosition() <= 0) {
             showToast("请选择读者类型");
             return;
@@ -122,7 +119,6 @@ public class AddReaderActivity extends BaseAddActivity {
             showToast("请选择登记日期");
             return;
         }
-
 
         Reader reader = new Reader();
         reader.setName(getString(mEtReaderName));

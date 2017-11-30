@@ -6,19 +6,40 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context="com.android.rdc.librarysystem.ui.AddReaderActivity">
+    tools:context="com.android.rdc.librarysystem.ui.ModifyReaderActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <include layout="@layout/include_toolbar"/>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/include_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:popupTheme="@style/OverFlowMenuTheme"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:titleTextColor="@color/white">
+
+            <ImageView
+                android:id="@+id/iv_delete"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="@color/greenyellow"
+                android:backgroundTintMode="multiply"
+                android:padding="3dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_delete_white"
+                tools:targetApi="lollipop"/>
+        </android.support.v7.widget.Toolbar>
+
 
         <android.support.design.widget.TextInputLayout
             style="@style/TextInputLayoutStyle"
-            android:hint="@string/reader_name"
-            >
+            android:hint="@string/reader_name">
 
             <EditText
                 android:id="@+id/et_reader_name"
@@ -36,8 +57,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/reader_type"
-                />
+                android:text="@string/reader_type"/>
 
             <Spinner
                 android:id="@+id/sp_reader_type"
@@ -84,8 +104,13 @@
 
         <TextView
             android:id="@+id/tv_enroll_date"
-            android:text="@string/enroll_date"
-            style="@style/TvDateStyle"/>
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginStart="25dp"
+            android:background="#22b0b4b0"
+            android:gravity="center_vertical"
+            android:text="@string/enroll_date"/>
 
         <android.support.design.widget.TextInputLayout
             style="@style/TextInputLayoutStyle"
@@ -140,8 +165,8 @@
         </android.support.design.widget.TextInputLayout>
 
         <Button
-            android:id="@+id/btn_add_reader"
+            android:id="@+id/btn_modify_reader"
             style="@style/BtnAddStyle"
-            android:text="@string/add_reader"/>
+            android:text="@string/modify"/>
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

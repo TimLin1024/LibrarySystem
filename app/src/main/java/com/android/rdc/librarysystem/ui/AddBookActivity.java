@@ -1,6 +1,7 @@
 package com.android.rdc.librarysystem.ui;
 
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -52,6 +53,7 @@ public class AddBookActivity extends BaseAddActivity {
     private Date mPublishDate;
     private Date mEnrollDate;
     private List<BookType> mBookTypeList;
+    private ArrayAdapter<String> mSpArrayAdapter;
 
     @Override
     protected int setLayoutResID() {
@@ -60,18 +62,24 @@ public class AddBookActivity extends BaseAddActivity {
 
     @Override
     protected void initData() {
-        mBookTypeList = DataSupport.findAll(BookType.class);
-        initBookTypeSpinner();
+
     }
 
-    private void initBookTypeSpinner() {
+    private void updateBookTypeSpinner() {
         List<String> stringList = new ArrayList<>();
         stringList.add("请选择");
         for (BookType bookType : mBookTypeList) {
             stringList.add(bookType.getTypeName());
         }
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, stringList);
-        mSpBookType.setAdapter(arrayAdapter);
+        stringList.add("添加新类型");
+        if (mSpArrayAdapter == null) {
+            mSpArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, stringList);
+            mSpBookType.setAdapter(mSpArrayAdapter);
+        } else {
+            mSpArrayAdapter.clear();//清除旧数据
+            mSpArrayAdapter.addAll(stringList);//添加新数据
+            mSpArrayAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -81,7 +89,26 @@ public class AddBookActivity extends BaseAddActivity {
 
     @Override
     protected void initListener() {
+        mSpBookType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == mBookTypeList.size() + 1) {//如果点击了末尾项，跳转到添加类型页面。因为头部 + 1，后面 +1，所以总长度为 size+2,最后一项下标为 size+1
+                    startActivity(AddBookTypeActivity.class);
+                }
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mBookTypeList = DataSupport.findAll(BookType.class);
+        updateBookTypeSpinner();
     }
 
     @OnClick({R.id.tv_publish_date, R.id.tv_enroll_date, R.id.btn_add_book})
@@ -132,7 +159,6 @@ public class AddBookActivity extends BaseAddActivity {
         book.setBorrowed(false);//刚登记入库，默认未借出
         book.setRemark(getString(mEtRemark));
         resolveSave(book);
-        return;
     }
 
     private void showPickerView(TextView tv) {

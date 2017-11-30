@@ -39,6 +39,10 @@
         </activity>
         <activity android:name=".ui.ModifyBookActivity">
         </activity>
+        <activity android:name=".ui.ModifyReaderActivity">
+        </activity>
+        <activity android:name=".ui.QueryReaderActivity">
+        </activity>
     </application>
 
 </manifest>
