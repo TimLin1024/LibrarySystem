@@ -37,6 +37,8 @@
         </activity>
         <activity android:name=".ui.StatisticsAnalysisActivity">
         </activity>
+        <activity android:name=".ui.ModifyBookActivity">
+        </activity>
     </application>
 
 </manifest>

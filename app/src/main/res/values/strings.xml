@@ -32,4 +32,5 @@
     <string name="return_book_number">归还的图书编号</string>
     <string name="return_book">还书</string>
     <string name="not_found">未找到相关内容</string>
+    <string name="modify">修改</string>
 </resources>

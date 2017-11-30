@@ -52,7 +52,7 @@ public class BookRvAdapter extends BaseSimpleRecyclerViewAdapter<Book> {
                 mTvIsInLibrary.setTextColor(Color.parseColor("#ea986c"));
             } else {
                 mTvIsInLibrary.setText("在馆：是");
-                mTvIsInLibrary.setTextColor(Color.parseColor("#ADD8E6"));
+                mTvIsInLibrary.setTextColor(Color.parseColor("#bdbdbd"));
             }
         }
     }

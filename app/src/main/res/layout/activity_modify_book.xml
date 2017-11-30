@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/include_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:popupTheme="@style/OverFlowMenuTheme"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:titleTextColor="@color/white">
+
+            <ImageView
+                android:id="@+id/iv_delete"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="10dp"
+                android:padding="3dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_delete"/>
+        </android.support.v7.widget.Toolbar>
+
+
+        <android.support.design.widget.TextInputLayout
+            style="@style/TextInputLayoutStyle"
+            android:hint="@string/book_name">
+
+            <EditText
+                android:id="@+id/et_book_name"
+                style="@style/TextInputLayoutStyle"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="25dp"
+            android:layout_marginStart="25dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/book_type"
+                android:textIsSelectable="true"
+                app:layout_constraintTop_toBottomOf="@id/til_reader_name"/>
+
+            <Spinner
+                android:id="@+id/sp_book_type"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:spinnerMode="dropdown"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="25dp"
+            android:layout_marginStart="25dp"
+            android:divider="@drawable/divider_line_vertical"
+            android:orientation="horizontal"
+            android:showDividers="middle">
+
+            <TextView
+                android:id="@+id/tv_publish_date"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:background="#22b0b4b0"
+                android:gravity="center_vertical"
+                android:text="@string/publish_date"/>
+
+            <TextView
+                android:id="@+id/tv_enroll_date"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:background="#22b0b4b0"
+                android:gravity="center_vertical"
+                android:paddingLeft="3dp"
+                android:text="@string/enroll_date"/>
+        </LinearLayout>
+
+        <android.support.design.widget.TextInputLayout
+            style="@style/TextInputLayoutStyle"
+            android:hint="@string/author_name">
+
+            <EditText
+                android:id="@+id/et_author_name"
+                style="@style/TextInputLayoutStyle"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            style="@style/TextInputLayoutStyle"
+            android:hint="@string/press_name">
+
+            <EditText
+                android:id="@+id/et_press_name"
+                style="@style/TextInputLayoutStyle"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            style="@style/TextInputLayoutStyle"
+            android:hint="@string/price">
+
+            <EditText
+                android:id="@+id/et_price"
+                style="@style/TextInputLayoutStyle"
+                android:inputType="numberDecimal"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            style="@style/TextInputLayoutStyle"
+            android:hint="@string/page_num">
+
+            <EditText
+                android:id="@+id/et_page_num"
+                style="@style/TextInputLayoutStyle"
+                android:inputType="number"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            style="@style/TextInputLayoutStyle"
+            android:hint="@string/keyword">
+
+            <EditText
+                android:id="@+id/et_keywords"
+                style="@style/TextInputLayoutStyle"
+                android:inputType="text"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            style="@style/TextInputLayoutStyle"
+            android:hint="@string/remark">
+
+            <EditText
+                android:id="@+id/et_remark"
+                style="@style/TextInputLayoutStyle"
+                android:inputType="textEmailAddress"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/btn_modify_book"
+            style="@style/BtnAddStyle"
+            android:text="@string/modify"/>
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

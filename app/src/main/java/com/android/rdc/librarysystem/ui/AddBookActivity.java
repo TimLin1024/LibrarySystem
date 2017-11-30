@@ -61,6 +61,17 @@ public class AddBookActivity extends BaseAddActivity {
     @Override
     protected void initData() {
         mBookTypeList = DataSupport.findAll(BookType.class);
+        initBookTypeSpinner();
+    }
+
+    private void initBookTypeSpinner() {
+        List<String> stringList = new ArrayList<>();
+        stringList.add("请选择");
+        for (BookType bookType : mBookTypeList) {
+            stringList.add(bookType.getTypeName());
+        }
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, stringList);
+        mSpBookType.setAdapter(arrayAdapter);
     }
 
     @Override
@@ -70,13 +81,7 @@ public class AddBookActivity extends BaseAddActivity {
 
     @Override
     protected void initListener() {
-        List<String> stringList = new ArrayList<>();
-        stringList.add("请选择");
-        for (BookType bookType : mBookTypeList) {
-            stringList.add(bookType.getTypeName());
-        }
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, stringList);
-        mSpBookType.setAdapter(arrayAdapter);
+
     }
 
     @OnClick({R.id.tv_publish_date, R.id.tv_enroll_date, R.id.btn_add_book})

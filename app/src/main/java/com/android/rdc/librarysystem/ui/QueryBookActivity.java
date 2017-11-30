@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
 import com.android.rdc.amdroidutil.base.BaseToolbarActivity;
+import com.android.rdc.amdroidutil.listener.OnClickRecyclerViewListener;
 import com.android.rdc.librarysystem.R;
 import com.android.rdc.librarysystem.adapter.BookRvAdapter;
 import com.android.rdc.librarysystem.bean.Book;
@@ -126,16 +127,38 @@ public class QueryBookActivity extends BaseToolbarActivity {
     @Override
     protected void initView() {
         setTitle("书籍查询");
-        List<Book> bookList = DataSupport.findAll(Book.class);//默认显示所有的书籍
-        mRvAdapter = new BookRvAdapter();
-        mRvAdapter.updateData(bookList);
-        mRv.setLayoutManager(new LinearLayoutManager(this));
-        mRv.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        mRv.setAdapter(mRvAdapter);
     }
 
     @Override
     protected void initListener() {
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        List<Book> bookList = DataSupport.findAll(Book.class);//默认显示所有的书籍
+        if (mRvAdapter == null) {
+            mRvAdapter = new BookRvAdapter();
+            mRvAdapter.updateData(bookList);
+            mRv.setLayoutManager(new LinearLayoutManager(this));
+            mRv.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+            mRv.setAdapter(mRvAdapter);
+            mRvAdapter.setOnRecyclerViewListener(new OnClickRecyclerViewListener() {
+                @Override
+                public void onItemClick(int i) {
+                    startActivity(ModifyBookActivity.newIntent(QueryBookActivity.this,
+                            mRvAdapter.getDataList().get(i).getId()));
+                }
+
+                @Override
+                public boolean onItemLongClick(int i) {
+                    return false;
+                }
+            });
+        } else {
+            mRvAdapter.updateData(bookList);
+            mRvAdapter.notifyDataSetChanged();
+        }
     }
 }

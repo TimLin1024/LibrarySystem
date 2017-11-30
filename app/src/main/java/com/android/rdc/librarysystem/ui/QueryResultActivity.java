@@ -54,7 +54,7 @@ public class QueryResultActivity extends BaseToolbarActivity {
         mSubTitle = query;
         //模糊查询书籍
         List<Book> bookList = DataSupport
-                .where("bookname like ? or authorname like ? or pressname like ? ", condition, condition, condition)
+                .where("bookname like ? or authorname like ? or pressname like ?", condition, condition, condition)
                 .find(Book.class);
         if (bookList.isEmpty()) {
             mRv.setVisibility(View.GONE);
