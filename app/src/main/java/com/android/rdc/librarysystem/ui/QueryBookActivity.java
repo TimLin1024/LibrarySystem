@@ -98,7 +98,7 @@ public class QueryBookActivity extends BaseToolbarActivity {
         //不插入重复记录
         mRecordDao.deleteRecord(query);//删除旧记录（如果有的话）
         mRecordDao.insert(query);//插入新的查询纪录
-        startActivity(QueryResultActivity.newIntent(this, query));
+        BookQueryResultActivity.startActivity(this, query);
     }
 
     @Override
@@ -138,6 +138,10 @@ public class QueryBookActivity extends BaseToolbarActivity {
     protected void onResume() {
         super.onResume();
         List<Book> bookList = DataSupport.findAll(Book.class);//默认显示所有的书籍
+        updateBookList(bookList);
+    }
+
+    private void updateBookList(List<Book> bookList) {
         if (mRvAdapter == null) {
             mRvAdapter = new BookRvAdapter();
             mRvAdapter.updateData(bookList);
@@ -147,8 +151,8 @@ public class QueryBookActivity extends BaseToolbarActivity {
             mRvAdapter.setOnRecyclerViewListener(new OnClickRecyclerViewListener() {
                 @Override
                 public void onItemClick(int i) {
-                    startActivity(ModifyBookActivity.newIntent(QueryBookActivity.this,
-                            mRvAdapter.getDataList().get(i).getId()));
+                    ModifyBookActivity.startActivity(QueryBookActivity.this,
+                            mRvAdapter.getDataList().get(i).getId());
                 }
 
                 @Override

@@ -80,7 +80,7 @@ public class ModifyReaderActivity extends BaseAddActivity implements ModifyReade
 
     @Override
     protected void initView() {
-
+        setTitle("修改读者信息");
     }
 
     @Override
@@ -103,6 +103,7 @@ public class ModifyReaderActivity extends BaseAddActivity implements ModifyReade
     @Override
     public void displayReaderData(Reader reader) {
         mReader = reader;
+        mEnrollDate = reader.getEnrollDate();
 
         mEtReaderName.setText(reader.getName());
         initSpinnerSelection();
@@ -115,8 +116,8 @@ public class ModifyReaderActivity extends BaseAddActivity implements ModifyReade
         mEtHomeAddress.setText(reader.getAddress());
         mEtPhone.setText(reader.getPhoneNum());
         mEtEmail.setText(reader.getEmail());
-        mTvEnrollDate.setText(String.format("登记日期：%s", DateUtil.dayFormat(reader.getEnrollDate())));
-        mEtRemark.setText(reader.getEmail());
+        mTvEnrollDate.setText(String.format("登记日期：%s", DateUtil.dayFormat(mEnrollDate)));
+        mEtRemark.setText(reader.getRemark());
     }
 
     private void initSpinnerSelection() {

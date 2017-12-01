@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.android.rdc.amdroidutil.base.BaseToolbarActivity;
+import com.android.rdc.amdroidutil.listener.OnClickRecyclerViewListener;
 import com.android.rdc.librarysystem.R;
 import com.android.rdc.librarysystem.adapter.BookRvAdapter;
 import com.android.rdc.librarysystem.bean.Book;
@@ -20,7 +21,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class QueryResultActivity extends BaseToolbarActivity {
+public class BookQueryResultActivity extends BaseToolbarActivity {
     @BindView(R.id.include_toolbar)
     Toolbar mIncludeToolbar;
     @BindView(R.id.rv)
@@ -31,11 +32,12 @@ public class QueryResultActivity extends BaseToolbarActivity {
     private static final String KEY_QUERY_TEXT = "QUERY_TEXT";
     private BookRvAdapter mRvAdapter;
     private String mSubTitle;
+    private String mQueryText;
 
-    public static Intent newIntent(Context context, String query) {
-        Intent intent = new Intent(context, QueryResultActivity.class);
+    public static void startActivity(Context context, String query) {
+        Intent intent = new Intent(context, BookQueryResultActivity.class);
         intent.putExtra(KEY_QUERY_TEXT, query);
-        return intent;
+        context.startActivity(intent);
     }
 
     @Override
@@ -45,8 +47,25 @@ public class QueryResultActivity extends BaseToolbarActivity {
 
     @Override
     protected void initData() {
-        String query = getIntent().getStringExtra(KEY_QUERY_TEXT);
-        resolveQuery(query);
+        mQueryText = getIntent().getStringExtra(KEY_QUERY_TEXT);
+    }
+
+
+    @Override
+    protected void initView() {
+        setTitle("图书检索");
+        mIncludeToolbar.setSubtitle(mSubTitle);
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        resolveQuery(mQueryText);
     }
 
     private void resolveQuery(String query) {
@@ -65,18 +84,20 @@ public class QueryResultActivity extends BaseToolbarActivity {
             mRv.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
             mRv.setLayoutManager(new LinearLayoutManager(this));
             mRv.setAdapter(mRvAdapter);
+            mRvAdapter.setOnRecyclerViewListener(new OnClickRecyclerViewListener() {
+                @Override
+                public void onItemClick(int i) {
+                    ModifyBookActivity.startActivity(BookQueryResultActivity.this,
+                            mRvAdapter.getDataList().get(i).getId());
+                }
+
+                @Override
+                public boolean onItemLongClick(int i) {
+                    return false;
+                }
+            });
             mRvAdapter.updateData(bookList);
         }
     }
 
-    @Override
-    protected void initView() {
-        setTitle("图书检索");
-        mIncludeToolbar.setSubtitle(mSubTitle);
-    }
-
-    @Override
-    protected void initListener() {
-
-    }
 }

@@ -31,8 +31,6 @@ public class AddReaderActivity extends BaseAddActivity {
 
     @BindView(R.id.et_reader_name)
     EditText mEtReaderName;
-    @BindView(R.id.tv_indicator_reader)
-    TextView mTvIndicatorReader;
     @BindView(R.id.sp_reader_type)
     Spinner mSpReaderType;
     @BindView(R.id.rb_man)

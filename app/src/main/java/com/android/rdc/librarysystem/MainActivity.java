@@ -14,6 +14,7 @@ import com.android.rdc.librarysystem.ui.AddReaderActivity;
 import com.android.rdc.librarysystem.ui.AddReaderTypeActivity;
 import com.android.rdc.librarysystem.ui.BorrowBookActivity;
 import com.android.rdc.librarysystem.ui.QueryBookActivity;
+import com.android.rdc.librarysystem.ui.QueryReaderActivity;
 import com.android.rdc.librarysystem.ui.ReturnBookActivity;
 import com.android.rdc.librarysystem.ui.StatisticsAnalysisActivity;
 
@@ -75,6 +76,9 @@ public class MainActivity extends BaseToolbarActivity {
                         startActivity(QueryBookActivity.class);
                         break;
                     case 7:
+                        startActivity(QueryReaderActivity.class);
+                        break;
+                    case 8:
                         startActivity(StatisticsAnalysisActivity.class);
                         break;
 

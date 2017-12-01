@@ -61,10 +61,16 @@ public class ModifyBookActivity extends BaseAddActivity implements ModifyBookCon
     private Date mEnrollDate;
     private Book mBook;
 
-    public static Intent newIntent(Context context, long bookId) {
+//    public static Intent newIntent(Context context, long bookId) {
+//        Intent intent = new Intent(context, ModifyBookActivity.class);
+//        intent.putExtra(KEY_BOOK_ID, bookId);
+//        return intent;
+//    }
+
+    public static void startActivity(Context context, long bookId) {
         Intent intent = new Intent(context, ModifyBookActivity.class);
         intent.putExtra(KEY_BOOK_ID, bookId);
-        return intent;
+        context.startActivity(intent);
     }
 
     @Override

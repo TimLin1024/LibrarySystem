@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:divider="@drawable/divider_5_horizontal"
+    android:orientation="vertical"
+    android:showDividers="end">
+
+    <TextView
+        android:id="@+id/tv_book_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="3dp"
+        android:drawableStart="@drawable/ic_user"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:textStyle="normal"
+        tools:text="乡土中国/费孝通著 社会文化"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.05dp"
+        android:background="@color/lightGray"/>
+
+    <TextView
+        android:id="@+id/tv_reader_num"
+        style="@style/TvBookMsgStyle"
+        android:drawablePadding="3dp"
+        android:drawableStart="@drawable/ic_number"
+        tools:text="借期：12121"/>
+
+    <TextView
+        android:id="@+id/tv_contact_way"
+        style="@style/TvBookMsgStyle"
+        android:drawablePadding="3dp"
+        android:drawableStart="@drawable/ic_contact"
+        tools:text="联系方式：18221118873"/>
+
+</LinearLayout>

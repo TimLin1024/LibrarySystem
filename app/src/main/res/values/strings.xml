@@ -35,4 +35,5 @@
     <string name="modify">修改</string>
     <string name="company">工作单位</string>
     <string name="gender">性别：</string>
+    <string name="search">搜索</string>
 </resources>

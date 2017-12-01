@@ -33,7 +33,7 @@
         </activity>
         <activity android:name=".ui.QueryBookActivity">
         </activity>
-        <activity android:name=".ui.QueryResultActivity">
+        <activity android:name=".ui.BookQueryResultActivity">
         </activity>
         <activity android:name=".ui.StatisticsAnalysisActivity">
         </activity>
@@ -42,6 +42,8 @@
         <activity android:name=".ui.ModifyReaderActivity">
         </activity>
         <activity android:name=".ui.QueryReaderActivity">
+        </activity>
+        <activity android:name=".ui.ReaderBorrowInfoActivity">
         </activity>
     </application>
 

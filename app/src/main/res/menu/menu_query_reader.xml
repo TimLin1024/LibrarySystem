@@ -7,11 +7,4 @@
         android:visible="true"
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="always"/>
-    <item
-        android:id="@+id/show_has_borrow"
-        android:icon="@drawable/ic_book"
-        android:title="显示已借出书籍"
-        android:visible="true"
-        app:showAsAction="never">
-    </item>
 </menu>
