@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import com.android.rdc.amdroidutil.base.BaseToolbarActivity;
 import com.android.rdc.amdroidutil.listener.OnClickRecyclerViewListener;
@@ -23,19 +25,23 @@ public class QueryReaderActivity extends BaseToolbarActivity {
 
     @BindView(R.id.rv)
     RecyclerView mRv;
-    private SearchView mSearchView;
+    @BindView(R.id.ll_no_match_result)
+    LinearLayout mLlNoMatchResult;
     private ReaderRvAdapter mAdapter;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_query_reader, menu);
         MenuItem menuItem = menu.findItem(R.id.search_view);
-        mSearchView = (SearchView) menuItem.getActionView();
-        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setQueryHint("输入姓名/公司名/编号等关键字");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-
-                return false;
+                String condition = "%" + query + "%";
+                List<Reader> readerList = DataSupport.where("name like ?  or company like ? or id like ? or gender like ? ", condition, condition, condition, condition).find(Reader.class);
+                updateUi(readerList);
+                return true;
             }
 
             @Override
@@ -50,7 +56,6 @@ public class QueryReaderActivity extends BaseToolbarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.menu.menu_query_reader:
-
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -68,7 +73,7 @@ public class QueryReaderActivity extends BaseToolbarActivity {
 
     @Override
     protected void initView() {
-
+        setTitle("读者信息查询");
     }
 
     @Override
@@ -80,6 +85,18 @@ public class QueryReaderActivity extends BaseToolbarActivity {
     protected void onResume() {
         super.onResume();
         List<Reader> readerList = DataSupport.findAll(Reader.class);
+        updateUi(readerList);
+    }
+
+    private void updateUi(List<Reader> readerList) {
+        if (readerList.isEmpty()) {
+            mRv.setVisibility(View.GONE);
+            mLlNoMatchResult.setVisibility(View.VISIBLE);
+            return;
+        } else {
+            mRv.setVisibility(View.VISIBLE);
+            mLlNoMatchResult.setVisibility(View.GONE);
+        }
         if (mAdapter == null) {
             mAdapter = new ReaderRvAdapter();
             mAdapter.updateData(readerList);
@@ -117,4 +134,5 @@ public class QueryReaderActivity extends BaseToolbarActivity {
                 })
                 .show();
     }
+
 }

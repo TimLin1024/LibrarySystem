@@ -36,7 +36,6 @@
                 tools:targetApi="lollipop"/>
         </android.support.v7.widget.Toolbar>
 
-
         <android.support.design.widget.TextInputLayout
             style="@style/TextInputLayoutStyle"
             android:hint="@string/reader_name">
@@ -49,8 +48,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="25dp"
-            android:layout_marginStart="25dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -70,8 +69,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="25dp"
-            android:layout_marginStart="25dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
             android:gravity="center_vertical">
 
             <TextView
@@ -106,8 +105,8 @@
             android:id="@+id/tv_enroll_date"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:layout_marginEnd="25dp"
-            android:layout_marginStart="25dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
             android:background="#22b0b4b0"
             android:gravity="center_vertical"
             android:text="@string/enroll_date"/>

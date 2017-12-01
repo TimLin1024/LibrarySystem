@@ -36,4 +36,5 @@
     <string name="company">工作单位</string>
     <string name="gender">性别：</string>
     <string name="search">搜索</string>
+    <string name="has_not_borrow_book">没有借阅过书籍</string>
 </resources>

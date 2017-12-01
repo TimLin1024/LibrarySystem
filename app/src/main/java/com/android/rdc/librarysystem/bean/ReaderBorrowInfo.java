@@ -3,37 +3,37 @@ package com.android.rdc.librarysystem.bean;
 /**
  * 读者借阅信息
  */
-public class ReaderBorrowBean {
-    long bookId;
-    String bookName;
-    long borrowDateTime;
-    long returnDateTime;
+public class ReaderBorrowInfo {
+    private long bookId;
+    private String bookMsg;
+    private long borrowDateTime;
+    private long returnDateTime;
 
-    public ReaderBorrowBean(long bookId, String bookName, long borrowDateTime, long returnDateTime) {
+    public ReaderBorrowInfo(long bookId, String bookMsg, long borrowDateTime, long returnDateTime) {
         this.bookId = bookId;
-        this.bookName = bookName;
+        this.bookMsg = bookMsg;
         this.borrowDateTime = borrowDateTime;
         this.returnDateTime = returnDateTime;
     }
 
-    public ReaderBorrowBean() {
+    public ReaderBorrowInfo() {
     }
 
     public long getBookId() {
         return bookId;
     }
 
-    public ReaderBorrowBean setBookId(long bookId) {
+    public ReaderBorrowInfo setBookId(long bookId) {
         this.bookId = bookId;
         return this;
     }
 
-    public String getBookName() {
-        return bookName;
+    public String getBookMsg() {
+        return bookMsg;
     }
 
-    public ReaderBorrowBean setBookName(String bookName) {
-        this.bookName = bookName;
+    public ReaderBorrowInfo setBookMsg(String bookMsg) {
+        this.bookMsg = bookMsg;
         return this;
     }
 
@@ -41,7 +41,7 @@ public class ReaderBorrowBean {
         return borrowDateTime;
     }
 
-    public ReaderBorrowBean setBorrowDateTime(long borrowDateTime) {
+    public ReaderBorrowInfo setBorrowDateTime(long borrowDateTime) {
         this.borrowDateTime = borrowDateTime;
         return this;
     }
@@ -50,16 +50,16 @@ public class ReaderBorrowBean {
         return returnDateTime;
     }
 
-    public ReaderBorrowBean setReturnDateTime(long returnDateTime) {
+    public ReaderBorrowInfo setReturnDateTime(long returnDateTime) {
         this.returnDateTime = returnDateTime;
         return this;
     }
 
     @Override
     public String toString() {
-        return "ReaderBorrowBean{" +
+        return "ReaderBorrowInfo{" +
                 "bookId=" + bookId +
-                ", bookName='" + bookName + '\'' +
+                ", bookMsg='" + bookMsg + '\'' +
                 ", borrowDateTime=" + borrowDateTime +
                 ", returnDateTime=" + returnDateTime +
                 '}';

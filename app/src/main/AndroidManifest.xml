@@ -45,6 +45,8 @@
         </activity>
         <activity android:name=".ui.ReaderBorrowInfoActivity">
         </activity>
+        <activity android:name=".ui.TypeInfoActivity">
+        </activity>
     </application>
 
 </manifest>

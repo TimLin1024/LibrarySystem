@@ -17,6 +17,7 @@ import com.android.rdc.librarysystem.ui.QueryBookActivity;
 import com.android.rdc.librarysystem.ui.QueryReaderActivity;
 import com.android.rdc.librarysystem.ui.ReturnBookActivity;
 import com.android.rdc.librarysystem.ui.StatisticsAnalysisActivity;
+import com.android.rdc.librarysystem.ui.TypeInfoActivity;
 
 import butterknife.BindView;
 
@@ -80,6 +81,9 @@ public class MainActivity extends BaseToolbarActivity {
                         break;
                     case 8:
                         startActivity(StatisticsAnalysisActivity.class);
+                        break;
+                    case 9:
+                        startActivity(TypeInfoActivity.class);
                         break;
 
                     default:

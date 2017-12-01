@@ -14,4 +14,25 @@
         android:id="@+id/rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
+    <!--没有符合条件的结果-->
+    <LinearLayout
+        android:id="@+id/ll_no_match_result"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_not_found"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/not_found"/>
+    </LinearLayout>
 </LinearLayout>

@@ -15,10 +15,10 @@
         android:id="@+id/tv_book_msg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawablePadding="3dp"
-        android:drawableStart="@drawable/ic_user"
         android:gravity="center_vertical"
+        android:paddingBottom="3dp"
         android:paddingLeft="10dp"
+        android:paddingTop="3dp"
         android:textColor="@color/black"
         android:textSize="14sp"
         android:textStyle="normal"
@@ -30,17 +30,20 @@
         android:background="@color/lightGray"/>
 
     <TextView
-        android:id="@+id/tv_reader_num"
+        android:id="@+id/tv_borrow_date"
         style="@style/TvBookMsgStyle"
         android:drawablePadding="3dp"
-        android:drawableStart="@drawable/ic_number"
         tools:text="借期：12121"/>
 
     <TextView
-        android:id="@+id/tv_contact_way"
+        android:id="@+id/tv_return_date"
         style="@style/TvBookMsgStyle"
         android:drawablePadding="3dp"
-        android:drawableStart="@drawable/ic_contact"
-        tools:text="联系方式：18221118873"/>
+        tools:text="还期：12121"/>
 
+    <TextView
+        android:id="@+id/tv_has_return"
+        style="@style/TvBookMsgStyle"
+        android:drawablePadding="3dp"
+        tools:text="已还：是"/>
 </LinearLayout>
