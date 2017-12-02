@@ -7,11 +7,11 @@ import android.widget.TextView;
 
 import com.android.rdc.amdroidutil.base.BaseSimpleRecyclerViewAdapter;
 import com.android.rdc.librarysystem.R;
-import com.android.rdc.librarysystem.bean.BookType;
+import com.android.rdc.librarysystem.bean.ReaderType;
 
 import butterknife.BindView;
 
-public class BookTypeAdapter extends BaseSimpleRecyclerViewAdapter<BookType> {
+public class ReaderTypeAdapter extends BaseSimpleRecyclerViewAdapter<ReaderType> {
 
     private boolean mShowCheckBox;//是否显示 CheckBox
 
@@ -37,19 +37,19 @@ public class BookTypeAdapter extends BaseSimpleRecyclerViewAdapter<BookType> {
         @BindView(R.id.cb_select)
         CheckBox mCb;
 
-        private BookType mBookType;
+        private ReaderType mReaderType;
 
         public StringHolder(View itemView) {
             super(itemView);
         }
 
         @Override
-        protected void bindView(BookType bookType) {
-            mBookType = bookType;
-            mTvText.setText(bookType.getTypeName());
+        protected void bindView(ReaderType readerType) {
+            mReaderType = readerType;
+            mTvText.setText(readerType.getTypeName());
             if (mShowCheckBox) {
                 mCb.setVisibility(View.VISIBLE);
-                mCb.setChecked(bookType.isSelected());
+                mCb.setChecked(readerType.isSelected());
             } else {
                 mCb.setVisibility(View.GONE);
             }
@@ -58,7 +58,7 @@ public class BookTypeAdapter extends BaseSimpleRecyclerViewAdapter<BookType> {
 
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            mBookType.setSelected(isChecked);
+            mReaderType.setSelected(isChecked);
         }
     }
 }

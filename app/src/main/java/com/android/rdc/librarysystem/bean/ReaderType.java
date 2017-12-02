@@ -21,6 +21,7 @@ public class ReaderType extends DataSupport {
     private Date expDate;//过期期限，也就是有效期
     private String remark;//备注
     private List<Reader> readerList = new ArrayList<>();
+    private boolean mIsSelected;
 
     public int getId() {
         return id;
@@ -76,5 +77,13 @@ public class ReaderType extends DataSupport {
 
     public void setReaderList(List<Reader> readerList) {
         this.readerList = readerList;
+    }
+
+    public boolean isSelected() {
+        return mIsSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        mIsSelected = selected;
     }
 }

@@ -36,9 +36,9 @@ public class StatisticModel implements StatisticContract.Model {
             cursor.close();
         }
 
-        PieDataSet pieDataSet = new PieDataSet(pieEntries, " 2017");//数据集
+        PieDataSet pieDataSet = new PieDataSet(pieEntries, "图书类型");//数据集
         pieDataSet.setColors(ColorTemplate.JOYFUL_COLORS);//颜色集
-        pieDataSet.setSliceSpace(2f);//每一片的空间
+        pieDataSet.setSliceSpace(2f);//片与片的间隔
         pieDataSet.setValueTextColor(Color.WHITE);//饼状图字体颜色
         pieDataSet.setValueTextSize(12f);//饼状图字体大小
 
@@ -69,12 +69,12 @@ public class StatisticModel implements StatisticContract.Model {
             cursor.close();
         }
 
-        PieDataSet pieDataSet = new PieDataSet(pieEntries, " 2017");//数据集
+        PieDataSet pieDataSet = new PieDataSet(pieEntries, "图书状态");//数据集
+        pieDataSet.setLabel("");
         pieDataSet.setColors(ColorTemplate.MATERIAL_COLORS);//颜色集
-        pieDataSet.setSliceSpace(2f);//每一片的空间
+        pieDataSet.setSliceSpace(2f);//片与片的间隔
         pieDataSet.setValueTextColor(Color.WHITE);//饼状图字体颜色
         pieDataSet.setValueTextSize(12f);//饼状图字体大小
-
         PieData pieData = new PieData(pieDataSet);
         listener.onFetchStoreInfoData(pieData);
     }

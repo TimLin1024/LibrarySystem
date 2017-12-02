@@ -1,31 +1,47 @@
 package com.android.rdc.librarysystem.ui.fragment;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.android.rdc.amdroidutil.base.BaseFragment;
 import com.android.rdc.amdroidutil.listener.OnClickRecyclerViewListener;
 import com.android.rdc.librarysystem.R;
 import com.android.rdc.librarysystem.adapter.BookTypeAdapter;
 import com.android.rdc.librarysystem.bean.BookType;
+import com.android.rdc.librarysystem.bean.ClickType;
+import com.android.rdc.librarysystem.bean.ShowSelectAll;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.litepal.crud.DataSupport;
 
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class BookTypeFragment extends BaseFragment {
 
     @BindView(R.id.rv)
     RecyclerView mRv;
+    @BindView(R.id.ll_delete)
+    LinearLayout mLlDelete;
+    @BindView(R.id.iv_delete)
+    ImageView mIvDelete;
+
+    private List<BookType> mBookTypeList;
+    private BookTypeAdapter mAdapter;
 
     public static BookTypeFragment newInstance() {
         return new BookTypeFragment();
     }
-
 
     @Override
     protected int setLayoutResourceId() {
@@ -34,27 +50,29 @@ public class BookTypeFragment extends BaseFragment {
 
     @Override
     protected void initData(Bundle bundle) {
-        List<BookType> bookTypeList = DataSupport.findAll(BookType.class);
-        BookTypeAdapter adapter = new BookTypeAdapter();
-        adapter.updateData(bookTypeList);
-        adapter.setOnRecyclerViewListener(new OnClickRecyclerViewListener() {
+        mBookTypeList = DataSupport.findAll(BookType.class);
+        mAdapter = new BookTypeAdapter();
+        mAdapter.updateData(mBookTypeList);
+        mAdapter.setOnRecyclerViewListener(new OnClickRecyclerViewListener() {
             @Override
             public void onItemClick(int i) {
-                BookType bookType = adapter.getDataList().get(i);
+                BookType bookType = mAdapter.getDataList().get(i);
                 bookType.setSelected(!bookType.isSelected());
-                adapter.notifyItemChanged(i);
+                mAdapter.notifyItemChanged(i);
             }
 
             @Override
             public boolean onItemLongClick(int i) {
-                adapter.getDataList().get(i).setSelected(true);
-                adapter.setShowCheckBox(true);
+                mAdapter.getDataList().get(i).setSelected(true);
+                mAdapter.setShowCheckBox(true);
+                mLlDelete.setVisibility(View.VISIBLE);
+                EventBus.getDefault().post(new ShowSelectAll());
                 return true;
             }
         });
-        mRv.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRv.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
-        mRv.setAdapter(adapter);
+        mRv.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRv.setAdapter(mAdapter);
     }
 
     @Override
@@ -64,7 +82,45 @@ public class BookTypeFragment extends BaseFragment {
 
     @Override
     protected void setListener() {
-
+        EventBus.getDefault().register(this);
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, priority = 100)
+    void onSelectAllClick(Enum<ClickType> clickType) {
+        if (clickType == ClickType.CANCEL) {
+            mLlDelete.setVisibility(View.GONE);
+            mAdapter.setShowCheckBox(false);//内部自动调用 notifyDataSetChanged
+            return;
+        }
+
+        for (BookType bookType : mBookTypeList) {
+            bookType.setSelected(clickType == ClickType.SELECT_ALL);
+        }
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @OnClick(R.id.iv_delete)
+    public void onViewClicked() {
+
+        new AlertDialog.Builder(getActivity())
+                .setMessage("该操作将删除与选中类型相关联的所有数据，确定删除？")
+                .setNegativeButton("取消", null)
+                .setPositiveButton("确定", (dialog, which) -> {
+                    for (BookType bookType : mBookTypeList) {
+                        if (bookType.isSelected()) {
+                            DataSupport.delete(BookType.class, bookType.getId());
+                        }
+                    }
+                    mBookTypeList = DataSupport.findAll(BookType.class);
+                    mAdapter.updateData(mBookTypeList);
+                    mAdapter.notifyDataSetChanged();
+                })
+                .show();
+    }
 }

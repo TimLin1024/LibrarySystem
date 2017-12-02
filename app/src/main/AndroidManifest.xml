@@ -47,6 +47,8 @@
         </activity>
         <activity android:name=".ui.TypeInfoActivity">
         </activity>
+        <activity android:name=".ui.ModifyReaderTypeActivity">
+        </activity>
     </application>
 
 </manifest>

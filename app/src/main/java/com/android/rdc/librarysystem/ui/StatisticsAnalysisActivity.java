@@ -1,12 +1,11 @@
 package com.android.rdc.librarysystem.ui;
 
-import android.widget.TextView;
-
 import com.android.rdc.amdroidutil.base.BaseToolbarActivity;
 import com.android.rdc.librarysystem.R;
 import com.android.rdc.librarysystem.contract.StatisticContract;
 import com.android.rdc.librarysystem.presenter.StatisticPresenter;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 
@@ -19,8 +18,6 @@ import butterknife.BindView;
  */
 public class StatisticsAnalysisActivity extends BaseToolbarActivity implements StatisticContract.View {
 
-    @BindView(R.id.tv_msg)
-    TextView mTvMsg;
     @BindView(R.id.pie_chart_book_type)
     PieChart mPieChartBookType;
     @BindView(R.id.pie_chart_store_info)
@@ -63,6 +60,9 @@ public class StatisticsAnalysisActivity extends BaseToolbarActivity implements S
 
     @Override
     public void updateBookTypeChart(PieData pieData) {
+        Description description = new Description();
+        description.setText("图书类型馆藏图");
+        mPieChartStoreInfo.setDescription(description);
         mPieChartBookType.getDescription().setEnabled(true);
 //        Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "OpenSans-Light.ttf");
 //        mPieChartBookType.setCenterTextTypeface(tf);
@@ -71,8 +71,8 @@ public class StatisticsAnalysisActivity extends BaseToolbarActivity implements S
 //        mPieChartBookType.setCenterTextTypeface(tf);
 
         // radius of the center hole in percent of maximum radius
-        mPieChartBookType.setHoleRadius(45f);//中间空白圆的半径
-        mPieChartBookType.setTransparentCircleRadius(50f);//透明圆的半径
+        mPieChartBookType.setHoleRadius(40f);//中间空白圆的半径
+        mPieChartBookType.setTransparentCircleRadius(46f);//透明圆的半径
 
         Legend legend = mPieChartBookType.getLegend();//获取图标的图例
         legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);//设置图例的垂直对齐
@@ -84,6 +84,9 @@ public class StatisticsAnalysisActivity extends BaseToolbarActivity implements S
 
     @Override
     public void updateStoreInfoChart(PieData pieData) {
+        Description description = new Description();
+        description.setText("图书在馆/出借图");
+        mPieChartStoreInfo.setDescription(description);
         mPieChartStoreInfo.getDescription().setEnabled(true);
         mPieChartStoreInfo.setHoleRadius(45f);
         mPieChartStoreInfo.setTransparentCircleRadius(47f);
@@ -91,7 +94,7 @@ public class StatisticsAnalysisActivity extends BaseToolbarActivity implements S
         Legend legend = mPieChartStoreInfo.getLegend();
         legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
-        legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        legend.setOrientation(Legend.LegendOrientation.VERTICAL);
         legend.setDrawInside(true);
         mPieChartStoreInfo.setData(pieData);
     }

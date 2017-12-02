@@ -37,12 +37,7 @@
 
     <TextView
         android:id="@+id/tv_expire_date"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginStart="18dp"
-        android:background="#22b0b4b0"
-        android:gravity="center_vertical"
+        style="@style/TvDateStyle"
         android:text="@string/expire_date"/>
 
     <android.support.design.widget.TextInputLayout

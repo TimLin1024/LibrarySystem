@@ -13,7 +13,7 @@
     <string name="type_name">种类名称</string>
     <string name="borrow_count">借书数量</string>
     <string name="borrow_mon">借书期限(单位：月)</string>
-    <string name="expire_date">有效值至</string>
+    <string name="expire_date">设置失效日期</string>
     <string name="add_reader_type">新建读者类型</string>
     <string name="add_book_type">新建书籍类型</string>
     <string name="publish_date">选择出版日期</string>
@@ -39,4 +39,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="select_all">全选</string>
+    <string name="delete">删除</string>
+    <string name="cancel">取消</string>
 </resources>
