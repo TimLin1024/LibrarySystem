@@ -6,7 +6,7 @@
     android:layout_height="40dp"
     android:background="?attr/selectableItemBackground"
     android:gravity="center_vertical"
-    android:paddingLeft="10dp"
+    android:paddingStart="10dp"
     tools:text="测试">
 
 </TextView>

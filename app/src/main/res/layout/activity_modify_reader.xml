@@ -33,7 +33,8 @@
                 android:padding="3dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_delete_white"
-                tools:targetApi="lollipop"/>
+                tools:targetApi="lollipop"
+                tools:ignore="ContentDescription"/>
         </android.support.v7.widget.Toolbar>
 
         <android.support.design.widget.TextInputLayout

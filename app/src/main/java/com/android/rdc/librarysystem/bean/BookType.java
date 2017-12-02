@@ -17,6 +17,7 @@ public class BookType extends DataSupport {
     private String keyWord;//关键词
     private String remark;//备注
     private List<Book> bookList = new ArrayList<>();//同一种类型可对应多不同的本书
+    boolean isSelected;//该字段不需要映射，故将访问权限设置为 default
 
     public BookType() {
     }
@@ -52,5 +53,13 @@ public class BookType extends DataSupport {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 }

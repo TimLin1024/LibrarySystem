@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">LibrarySystem</string>
-    <string name="reader_id">读者编号</string>
     <string name="reader_name">读者姓名</string>
     <string name="reader_type">读者类型</string>
     <string name="man">男</string>
@@ -37,4 +36,7 @@
     <string name="gender">性别：</string>
     <string name="search">搜索</string>
     <string name="has_not_borrow_book">没有借阅过书籍</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

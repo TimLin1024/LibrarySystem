@@ -34,6 +34,7 @@ public class MainActivity extends BaseToolbarActivity {
 
     @Override
     protected void initData() {
+        //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
         setTitle("图书管理系统");

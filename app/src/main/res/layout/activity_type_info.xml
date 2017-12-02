@@ -8,9 +8,17 @@
     android:orientation="vertical"
     tools:context="com.android.rdc.librarysystem.ui.TypeInfoActivity">
 
-    <include layout="@layout/include_toolbar"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/include_toolbar"/>
+        
+    </RelativeLayout>
+
 
     <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -19,7 +27,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="top">
-
 
         </android.support.design.widget.TabLayout>
     </android.support.v4.view.ViewPager>

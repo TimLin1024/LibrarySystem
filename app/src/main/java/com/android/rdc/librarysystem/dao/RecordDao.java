@@ -74,19 +74,4 @@ public class RecordDao {
         return recordList;
     }
 
-    public String queryLastRecord() {
-        Cursor cursor = mHelper.getReadableDatabase().query(Constants.SEARCH_RECORD_TABLE_NAME, null,
-                null, null,
-                null, null, "id DESC");//按照 id 降序排序，这样第一条记录就是最后插入的记录
-        String lastRecord = "";
-        if (cursor != null && cursor.moveToFirst()) {
-            int index = cursor.getColumnIndex(Constants.SEARCH_RECORD_COLUMN_NAME);
-            lastRecord = cursor.getString(index);
-        }
-        if (cursor != null) {
-            cursor.close();
-        }
-        return lastRecord;
-    }
-
 }

@@ -12,7 +12,8 @@
         android:id="@+id/iv_icon"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        tools:src="@drawable/ic_book"/>
+        tools:src="@drawable/ic_book"
+        tools:ignore="ContentDescription"/>
 
     <TextView
         android:id="@+id/tv_name"

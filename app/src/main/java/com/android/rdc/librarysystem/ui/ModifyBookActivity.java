@@ -139,6 +139,7 @@ public class ModifyBookActivity extends BaseAddActivity implements ModifyBookCon
     private void setBookTypeSelection() {
         long bookTypeId = -1;
         Cursor cursor = DataSupport.findBySQL("select booktype_id from book where id = " + mBookId);
+        //noinspection ConstantConditions
         if (cursor != null && cursor.moveToFirst()) {
             bookTypeId = cursor.getLong(0);//获取图书类型的 id
             Log.d(TAG, "setBookTypeSelection:bookTypeId " + bookTypeId);

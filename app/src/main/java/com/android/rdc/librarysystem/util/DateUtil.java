@@ -8,11 +8,11 @@ import java.util.Date;
 public class DateUtil {
     public static final String DAY_FORMAT = "yyyy-MM-dd";
     @SuppressLint("SimpleDateFormat")
-    private static SimpleDateFormat sMinuteFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private static final SimpleDateFormat sMinuteFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     @SuppressLint("SimpleDateFormat")
-    private static SimpleDateFormat sHourTimeFormat = new SimpleDateFormat("HH:mm");
+    private static final SimpleDateFormat sHourTimeFormat = new SimpleDateFormat("HH:mm");
     @SuppressLint("SimpleDateFormat")
-    private static SimpleDateFormat sDayFormat = new SimpleDateFormat(DAY_FORMAT);
+    private static final SimpleDateFormat sDayFormat = new SimpleDateFormat(DAY_FORMAT);
 
 
     private DateUtil() {
