@@ -13,32 +13,18 @@
         android:hint="@string/type_name">
 
         <EditText
-            android:id="@+id/et_reader_category_name"
+            android:id="@+id/et_book_category_name"
             style="@style/TextInputLayoutStyle"/>
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         style="@style/TextInputLayoutStyle"
-        android:hint="@string/borrow_count">
+        android:hint="@string/keyword">
 
         <EditText
-            android:id="@+id/et_borrow_count"
+            android:id="@+id/et_keyword"
             style="@style/TextInputLayoutStyle"/>
     </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        style="@style/TextInputLayoutStyle"
-        android:hint="@string/borrow_mon">
-
-        <EditText
-            android:id="@+id/et_borrow_len"
-            style="@style/TextInputLayoutStyle"/>
-    </android.support.design.widget.TextInputLayout>
-
-    <TextView
-        android:id="@+id/tv_expire_date"
-        style="@style/TvDateStyle"
-        android:text="@string/expire_date"/>
 
     <android.support.design.widget.TextInputLayout
         style="@style/TextInputLayoutStyle"
@@ -51,7 +37,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <Button
-        android:id="@+id/btn_add_reader_type"
+        android:id="@+id/btn_modify_book_type"
         style="@style/BtnAddStyle"
         android:text="@string/modify"/>
 </LinearLayout>

@@ -15,6 +15,7 @@ import com.android.rdc.librarysystem.adapter.ReaderTypeAdapter;
 import com.android.rdc.librarysystem.bean.ClickType;
 import com.android.rdc.librarysystem.bean.ReaderType;
 import com.android.rdc.librarysystem.bean.ShowSelectAll;
+import com.android.rdc.librarysystem.ui.ModifyReaderTypeActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -50,10 +51,10 @@ public class ReaderTypeFragment extends BaseFragment {
         mReaderTypeList = DataSupport.findAll(ReaderType.class);
         mAdapter = new ReaderTypeAdapter();
         mAdapter.updateData(mReaderTypeList);
-        setRvClickListener();
         mRv.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRv.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         mRv.setAdapter(mAdapter);
+        setRvClickListener();
     }
 
     private void setRvClickListener() {
@@ -61,8 +62,13 @@ public class ReaderTypeFragment extends BaseFragment {
             @Override
             public void onItemClick(int i) {
                 ReaderType readerType = mAdapter.getDataList().get(i);
-                readerType.setSelected(!readerType.isSelected());
-                mAdapter.notifyItemChanged(i);
+                if (mLlDelete.getVisibility() == View.VISIBLE) {//下方的删除布局可见，说明是批量操作状态
+                    readerType.setSelected(!readerType.isSelected());
+                    mAdapter.notifyItemChanged(i);
+                } else {//否则打开类型详情
+                    ModifyReaderTypeActivity.startActivity(getActivity(),
+                            readerType.getId());
+                }
             }
 
             @Override
@@ -75,6 +81,7 @@ public class ReaderTypeFragment extends BaseFragment {
             }
         });
     }
+
 
     @Override
     protected void initView() {
@@ -108,7 +115,6 @@ public class ReaderTypeFragment extends BaseFragment {
 
     @OnClick(R.id.iv_delete)
     public void onViewClicked() {
-
         new AlertDialog.Builder(getActivity())
                 .setMessage("该操作将删除与选中类型相关联的所有数据，确定删除？")
                 .setNegativeButton("取消", null)

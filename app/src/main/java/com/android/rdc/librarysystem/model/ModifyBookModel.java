@@ -23,7 +23,9 @@ public class ModifyBookModel implements ModifyBookContract.Model {
 
     @Override
     public void modifyBook(Book book, OnBookModifyListener listener) {
-        //update 无法更新外键，试用 save。 save 会导致关联表的外键丢失 不可行，应该使用原生的 update
+        //litepal 的 DataSupport 子类对象 update 无法更新外键，也就是更新的那张表的外键丢失;
+        // 试用 save, save 会导致关联表的外键丢失 --> 不可行；
+        // 应该使用 Sqlite 的 update
         ContentValues contentValues = new ContentValues();
         contentValues.put("bookname", book.getBookName());
         contentValues.put("authorname", book.getAuthorName());

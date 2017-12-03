@@ -77,13 +77,18 @@ public class AddReaderTypeActivity extends BaseAddActivity {
             return;
         }
 
+        if (mExpDate == null) {
+            showToast("请设置失效日期");
+            return;
+        }
+
         ReaderType readerType = new ReaderType();
         readerType.setTypeName(getString(mEtReaderCategoryName));
         readerType.setBorrowCount(getNumberFromEt(mEtBorrowCount, 5));//若为空 默认为 5 本
         readerType.setBorrowMon(getNumberFromEt(mEtBorrowLen, 1));//如果为空默认为 1 个月
         readerType.setRemark(getString(mEtRemark));
         readerType.setExpDate(mExpDate);
-        resolveSave(readerType,"新读者类型添加成功","添加失败，请重试");
+        resolveSave(readerType, "新读者类型添加成功", "添加失败，请重试");
     }
 
     protected void showDatePicker() {

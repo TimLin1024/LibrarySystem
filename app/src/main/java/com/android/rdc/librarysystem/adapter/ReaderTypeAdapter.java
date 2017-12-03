@@ -44,6 +44,11 @@ public class ReaderTypeAdapter extends BaseSimpleRecyclerViewAdapter<ReaderType>
         }
 
         @Override
+        public void onClick(View v) {
+            super.onClick(v);
+        }
+
+        @Override
         protected void bindView(ReaderType readerType) {
             mReaderType = readerType;
             mTvText.setText(readerType.getTypeName());

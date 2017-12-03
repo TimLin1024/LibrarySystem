@@ -16,6 +16,7 @@ import com.android.rdc.librarysystem.adapter.BookTypeAdapter;
 import com.android.rdc.librarysystem.bean.BookType;
 import com.android.rdc.librarysystem.bean.ClickType;
 import com.android.rdc.librarysystem.bean.ShowSelectAll;
+import com.android.rdc.librarysystem.ui.ModifyBookTypeActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -53,12 +54,23 @@ public class BookTypeFragment extends BaseFragment {
         mBookTypeList = DataSupport.findAll(BookType.class);
         mAdapter = new BookTypeAdapter();
         mAdapter.updateData(mBookTypeList);
+        setRvClickListener();
+        mRv.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
+        mRv.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRv.setAdapter(mAdapter);
+    }
+
+    private void setRvClickListener() {
         mAdapter.setOnRecyclerViewListener(new OnClickRecyclerViewListener() {
             @Override
             public void onItemClick(int i) {
                 BookType bookType = mAdapter.getDataList().get(i);
-                bookType.setSelected(!bookType.isSelected());
-                mAdapter.notifyItemChanged(i);
+                if (mLlDelete.getVisibility() == View.VISIBLE) {
+                    bookType.setSelected(!bookType.isSelected());
+                    mAdapter.notifyItemChanged(i);
+                } else {
+                    ModifyBookTypeActivity.startActivity(getActivity(), bookType.getId());
+                }
             }
 
             @Override
@@ -70,9 +82,6 @@ public class BookTypeFragment extends BaseFragment {
                 return true;
             }
         });
-        mRv.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
-        mRv.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRv.setAdapter(mAdapter);
     }
 
     @Override
@@ -107,7 +116,10 @@ public class BookTypeFragment extends BaseFragment {
 
     @OnClick(R.id.iv_delete)
     public void onViewClicked() {
+        showAlertDialog();
+    }
 
+    private void showAlertDialog() {
         new AlertDialog.Builder(getActivity())
                 .setMessage("该操作将删除与选中类型相关联的所有数据，确定删除？")
                 .setNegativeButton("取消", null)

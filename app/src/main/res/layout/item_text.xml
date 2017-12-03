@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,9 +10,9 @@
 
     <TextView
         android:id="@+id/tv_text"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:gravity="center_vertical"
         android:paddingStart="10dp"
         tools:text="测试"/>
@@ -21,5 +21,13 @@
         android:id="@+id/cb_select"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
         tools:checked="true"/>
-</LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/divider_line_horizontal"/>
+</RelativeLayout>
