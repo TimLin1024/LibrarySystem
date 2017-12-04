@@ -1,8 +1,10 @@
 package com.android.rdc.librarysystem.ui;
 
+import android.content.ContentValues;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import com.android.rdc.librarysystem.R;
 import com.android.rdc.librarysystem.base.BaseAddActivity;
@@ -11,6 +13,7 @@ import com.android.rdc.librarysystem.bean.Borrow;
 import com.android.rdc.librarysystem.bean.Reader;
 
 import org.litepal.crud.DataSupport;
+import org.litepal.tablemanager.Connector;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -73,7 +76,7 @@ public class ReturnBookActivity extends BaseAddActivity {
         //查找对应的记录
         Borrow borrowRecord = getBorrowRecord(reader, book);
         if (borrowRecord == null) {
-            showToast("找不到相应的借书记录");
+            showToast("您已经归还此书");
             return;
         }
         //进行保存
@@ -81,14 +84,29 @@ public class ReturnBookActivity extends BaseAddActivity {
     }
 
     private void doSave(Reader reader, Book book, Borrow borrowRecord) {
-        reader.decreaseCurrentBorrowCount();//当前借书数目 - 1
-        reader.update(reader.getId());
-        book.setBorrowed(false);//书籍标记为未借出状态
-        book.update(book.getId());
+        Connector.getDatabase().beginTransaction();//开启事务
+        //更新读者信息
+        ContentValues readerCv = new ContentValues();
+        readerCv.put("currentborrowcount", reader.getCurrentBorrowCount() - 1);
+        DataSupport.update(Reader.class, readerCv, reader.getId());
+
+        //更新书籍信息
+        ContentValues bookCv = new ContentValues();
+        bookCv.put("isborrowed", false);
+        DataSupport.update(Book.class, bookCv, book.getId());
+        //更新借阅信息
         borrowRecord.setReturnDate(new Date());//归还日期
         borrowRecord.setReader(reader);
         borrowRecord.setBook(book);
-        resolveSave(borrowRecord, "还书成功", "还书失败");
+        if (borrowRecord.save()) {
+            Connector.getDatabase().setTransactionSuccessful();//设置事务成功
+            Toast.makeText(this, "还书成功", Toast.LENGTH_SHORT).show();
+            Connector.getDatabase().endTransaction();//结束事务
+            finish();
+        } else {
+            Connector.getDatabase().endTransaction();//结束事务
+            Toast.makeText(this, "还书失败", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Nullable

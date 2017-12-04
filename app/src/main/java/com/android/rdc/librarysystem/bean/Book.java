@@ -136,4 +136,23 @@ public class Book extends DataSupport {
         this.remark = remark;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", bookName='" + bookName + '\'' +
+                ", bookType=" + bookType +
+                ", authorName='" + authorName + '\'' +
+                ", pressName='" + pressName + '\'' +
+                ", publishDate=" + publishDate +
+                ", price=" + price +
+                ", pages=" + pages +
+                ", keyWord='" + keyWord + '\'' +
+                ", enrollDate=" + enrollDate +
+                ", isBorrowed=" + isBorrowed +
+                ", remark='" + remark + '\'' +
+                ", borrowList=" + borrowList +
+                '}';
+    }
 }

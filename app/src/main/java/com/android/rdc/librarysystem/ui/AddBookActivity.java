@@ -162,6 +162,7 @@ public class AddBookActivity extends BaseAddActivity {
     }
 
     private void showPickerView(TextView tv) {
+        hideSoftInput();//隐藏软键盘
         new TimePickerView.Builder(this, (date, v) -> {
             switch (tv.getId()) {
                 case R.id.tv_publish_date:

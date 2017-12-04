@@ -92,6 +92,7 @@ public class AddReaderTypeActivity extends BaseAddActivity {
     }
 
     protected void showDatePicker() {
+        hideSoftInput();//隐藏软键盘
         new TimePickerView.Builder(this, (date, v1) -> {
             mExpDate = date;
             mTvExpireDate.setText(String.format("失效日期：%s", DateUtil.dayFormat(date)));

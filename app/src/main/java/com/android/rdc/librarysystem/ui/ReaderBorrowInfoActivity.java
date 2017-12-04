@@ -29,7 +29,6 @@ public class ReaderBorrowInfoActivity extends BaseToolbarActivity {
     RecyclerView mRv;
     @BindView(R.id.ll_no_match_result)
     LinearLayout mLlNoMatchResult;
-
     private long mReaderId;
 
     @Override
@@ -40,19 +39,6 @@ public class ReaderBorrowInfoActivity extends BaseToolbarActivity {
     @Override
     protected void initData() {
         mReaderId = getIntent().getLongExtra(KEY_READER_ID, -1);
-    }
-
-    private List<ReaderBorrowInfo> getReaderInfoList() {
-        //根据读者 id ，查询所借阅所有的书籍 ,首先去 borrow 表中查询 该 id 借阅的所有书籍的 id，根据 bookId 去 book 表中查询所有对应的 book
-        Cursor cursor = DataSupport.findBySQL("select book_id,bookname,authorname,borrowdate,returndate from borrow,book where book.id = borrow.book_id and reader_id = " + mReaderId);
-        List<ReaderBorrowInfo> readerBorrowInfoList = new ArrayList<>();
-        if (cursor != null && cursor.moveToFirst()) {
-            readerBorrowInfoList.add(getReaderBorrowBeanFromCursor(cursor));
-            while (cursor.moveToNext()) {
-                readerBorrowInfoList.add(getReaderBorrowBeanFromCursor(cursor));
-            }
-        }
-        return readerBorrowInfoList;
     }
 
     @Override
@@ -90,6 +76,19 @@ public class ReaderBorrowInfoActivity extends BaseToolbarActivity {
     @Override
     protected void initListener() {
 
+    }
+
+    private List<ReaderBorrowInfo> getReaderInfoList() {
+        //根据读者 id ，查询所借阅所有的书籍 ,首先去 borrow 表中查询 该 id 借阅的所有书籍的 id，根据 bookId 去 book 表中查询所有对应的 book
+        Cursor cursor = DataSupport.findBySQL("select book_id,bookname,authorname,borrowdate,returndate from borrow,book where book.id = borrow.book_id and reader_id = " + mReaderId);
+        List<ReaderBorrowInfo> readerBorrowInfoList = new ArrayList<>();
+        if (cursor != null && cursor.moveToFirst()) {
+            readerBorrowInfoList.add(getReaderBorrowBeanFromCursor(cursor));
+            while (cursor.moveToNext()) {
+                readerBorrowInfoList.add(getReaderBorrowBeanFromCursor(cursor));
+            }
+        }
+        return readerBorrowInfoList;
     }
 
     public static void startActivity(Context context, long readerId) {

@@ -1,6 +1,6 @@
 package com.android.rdc.librarysystem;
 
-import android.support.design.widget.FloatingActionButton;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,7 +21,10 @@ import com.android.rdc.librarysystem.ui.QueryReaderActivity;
 import com.android.rdc.librarysystem.ui.ReturnBookActivity;
 import com.android.rdc.librarysystem.ui.StatisticsAnalysisActivity;
 import com.android.rdc.librarysystem.ui.TypeInfoActivity;
-import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
+import com.nightonke.boommenu.BoomMenuButton;
+import com.nightonke.boommenu.Types.BoomType;
+import com.nightonke.boommenu.Types.ButtonType;
+import com.nightonke.boommenu.Types.PlaceType;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
 import butterknife.BindView;
@@ -30,11 +33,27 @@ public class MainActivity extends BaseToolbarActivity {
 
     @BindView(R.id.rv)
     RecyclerView mRv;
-    @BindView(R.id.fab)
-    FloatingActionButton mFloatingActionButton;
-
-
+    @BindView(R.id.boom_menu_btn)
+    BoomMenuButton mBoomMenuButton;
     private GridRvAdapter mAdapter;
+
+
+    private String[] mBtnText = new String[]{"添加读者", "添加读者类型", "添加书籍", "添加书籍类型"};
+    private int[][] mSubBtnColorList = {
+            {
+                    R.color.colorPrimary, R.color.colorPrimaryDark
+            },
+            {
+                    R.color.colorPrimary, R.color.colorPrimaryDark
+            },
+            {
+                    R.color.colorPrimary, R.color.colorPrimaryDark
+            },
+            {
+                    R.color.colorPrimary, R.color.colorPrimaryDark
+            }
+    };
+
 
     @Override
     protected int setLayoutResID() {
@@ -57,7 +76,48 @@ public class MainActivity extends BaseToolbarActivity {
         mRv.setLayoutManager(new GridLayoutManager(this, 3));
         mRv.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
-        initSatelliteMenu();
+//        initSatelliteMenu();
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        Drawable[] mDrawables = new Drawable[]{getDrawable(R.drawable.ic_add),
+                getDrawable(R.drawable.ic_add_reader),
+                getDrawable(R.drawable.ic_add),
+                getDrawable(R.drawable.ic_book)};
+
+        mBoomMenuButton.init(
+                mDrawables,
+                mBtnText,
+                mSubBtnColorList,
+                ButtonType.HAM,
+                BoomType.LINE,
+                PlaceType.HAM_4_1,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+        mBoomMenuButton.setOnSubButtonClickListener(buttonIndex -> {
+            switch (buttonIndex) {
+                case 0:
+                    startActivity(AddReaderActivity.class);
+                    break;
+                case 1:
+                    startActivity(AddReaderTypeActivity.class);
+                    break;
+                case 2:
+                    startActivity(AddBookActivity.class);
+                    break;
+                case 3:
+                    startActivity(AddBookTypeActivity.class);
+                    break;
+            }
+        });
     }
 
     private void initSatelliteMenu() {
@@ -85,11 +145,11 @@ public class MainActivity extends BaseToolbarActivity {
         SubActionButton.Builder itemAddBookBuilder = new SubActionButton.Builder(this)
                 .setContentView(ivAddBook);
 
-        FloatingActionMenu floatingActionMenu = new FloatingActionMenu.Builder(this)
-                .addSubActionView(itemAddReaderBuilder.build())
-                .addSubActionView(itemAddBookBuilder.build())
-                .attachTo(mFloatingActionButton)
-                .build();
+//        FloatingActionMenu floatingActionMenu = new FloatingActionMenu.Builder(this)
+//                .addSubActionView(itemAddReaderBuilder.build())
+//                .addSubActionView(itemAddBookBuilder.build())
+//                .attachTo(mFloatingActionButton)
+//                .build();
     }
 
     @Override

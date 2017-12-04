@@ -92,6 +92,7 @@ public class AddReaderActivity extends BaseAddActivity {
     }
 
     private void showDatePicker() {
+        hideSoftInput();//隐藏软键盘
         new TimePickerView.Builder(this, (date, v1) -> {
             mEnrollDate = date;
             mTvEnrollDate.setText(String.format("登记日期：%s", DateUtil.dayFormat(date)));
@@ -100,7 +101,6 @@ public class AddReaderActivity extends BaseAddActivity {
                 .build()
                 .show();
     }
-
 
     private void saveReader() {
         if (mSpReaderType.getSelectedItemPosition() <= 0) {
