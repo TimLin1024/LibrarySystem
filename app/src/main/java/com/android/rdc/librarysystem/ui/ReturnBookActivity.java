@@ -89,7 +89,6 @@ public class ReturnBookActivity extends BaseAddActivity {
         ContentValues readerCv = new ContentValues();
         readerCv.put("currentborrowcount", reader.getCurrentBorrowCount() - 1);
         DataSupport.update(Reader.class, readerCv, reader.getId());
-
         //更新书籍信息
         ContentValues bookCv = new ContentValues();
         bookCv.put("isborrowed", false);

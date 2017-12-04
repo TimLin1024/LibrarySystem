@@ -8,7 +8,6 @@
     android:orientation="vertical"
     tools:context="com.android.rdc.librarysystem.ui.TypeInfoActivity">
 
-
     <include
         android:id="@+id/include_toolbar"
         layout="@layout/include_toolbar"/>

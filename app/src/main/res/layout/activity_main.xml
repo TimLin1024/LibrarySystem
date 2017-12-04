@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,23 +8,52 @@
     android:orientation="vertical"
     tools:context="com.android.rdc.librarysystem.MainActivity">
 
-    <include layout="@layout/include_toolbar"/>
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="236dp"
+        android:fitsSystemWindows="true">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_tb_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:contentScrim="@color/colorPrimary"
+            app:expandedTitleGravity="center"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:title="图书管理系统">
+
+            <!--这里因为需要 logo 着色所以设置为背景，而不是 src，若放在 Toolbar 之后会导致覆盖-->
+            <!--上述结论错误，只要 Toolbar  不设置为 pin 还是可以的-->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_gdut_logo"
+                android:backgroundTint="@color/white"
+                app:layout_collapseMode="parallax"
+                tools:targetApi="lollipop"/>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/include_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorPrimary"
+                app:popupTheme="@style/OverFlowMenuTheme"
+                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:titleTextColor="@color/white"/>
+            <!--app:layout_collapseMode="pin"-->
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-    <!--<android.support.design.widget.FloatingActionButton-->
-    <!--android:id="@+id/fab"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_gravity="end|bottom"-->
-    <!--android:layout_marginBottom="10dp"-->
-    <!--android:layout_marginEnd="10dp"-->
-    <!--android:src="@drawable/ic_add"-->
-    <!--app:backgroundTint="@color/colorPrimary"/>-->
     <com.nightonke.boommenu.BoomMenuButton
         android:id="@+id/boom_menu_btn"
         android:layout_width="wrap_content"
@@ -34,6 +63,6 @@
         app:boom_button_color="@color/colorPrimary"
         app:boom_button_pressed_color="@color/colorPrimary"
         app:boom_inActionBar="false"
-        />
+        app:layout_anchorGravity="bottom|end"/>
 
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

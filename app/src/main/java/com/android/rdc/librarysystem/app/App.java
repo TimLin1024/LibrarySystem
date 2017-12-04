@@ -8,6 +8,7 @@ import com.android.rdc.librarysystem.model.DefaultDataModel;
 import com.facebook.stetho.Stetho;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import org.litepal.LitePalApplication;
 import org.litepal.crud.DataSupport;
@@ -23,6 +24,7 @@ public class App extends LitePalApplication {
         Connector.getDatabase();//初始化数据库
         addDefaultData();
         setupLeakCanary();//内存泄漏检测
+        CrashReport.initCrashReport(getApplicationContext());//初始化 bugly
     }
 
     protected RefWatcher setupLeakCanary() {

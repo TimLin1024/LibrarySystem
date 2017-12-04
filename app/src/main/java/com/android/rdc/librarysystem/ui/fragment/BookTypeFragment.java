@@ -101,7 +101,7 @@ public class BookTypeFragment extends BaseFragment {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, priority = 100)
-    void onSelectAllClick(Enum<ClickType> clickType) {
+    public void onSelectAllClick(Enum<ClickType> clickType) {
         if (clickType == ClickType.CANCEL) {
             mLlDelete.setVisibility(View.GONE);
             mAdapter.setShowCheckBox(false);//内部自动调用 notifyDataSetChanged

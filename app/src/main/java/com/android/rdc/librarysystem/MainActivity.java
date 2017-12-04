@@ -1,11 +1,12 @@
 package com.android.rdc.librarysystem;
 
 import android.graphics.drawable.Drawable;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.view.View;
 
 import com.android.rdc.amdroidutil.base.BaseToolbarActivity;
 import com.android.rdc.amdroidutil.listener.OnClickRecyclerViewListener;
@@ -25,9 +26,9 @@ import com.nightonke.boommenu.BoomMenuButton;
 import com.nightonke.boommenu.Types.BoomType;
 import com.nightonke.boommenu.Types.ButtonType;
 import com.nightonke.boommenu.Types.PlaceType;
-import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class MainActivity extends BaseToolbarActivity {
 
@@ -35,22 +36,26 @@ public class MainActivity extends BaseToolbarActivity {
     RecyclerView mRv;
     @BindView(R.id.boom_menu_btn)
     BoomMenuButton mBoomMenuButton;
+    @BindView(R.id.collapsing_tb_layout)
+    CollapsingToolbarLayout mCollapsingTbLayout;
+    @BindView(R.id.app_bar_layout)
+    AppBarLayout mAppBarLayout;
     private GridRvAdapter mAdapter;
 
-
+    private Drawable[] mDrawables;
     private String[] mBtnText = new String[]{"添加读者", "添加读者类型", "添加书籍", "添加书籍类型"};
     private int[][] mSubBtnColorList = {
             {
-                    R.color.colorPrimary, R.color.colorPrimaryDark
+                    R.color.white, R.color.colorPrimaryDark
+            },
+            {
+                    R.color.wheat, R.color.colorPrimaryDark
             },
             {
                     R.color.colorPrimary, R.color.colorPrimaryDark
             },
             {
-                    R.color.colorPrimary, R.color.colorPrimaryDark
-            },
-            {
-                    R.color.colorPrimary, R.color.colorPrimaryDark
+                    R.color.colorPrimary, R.color.yellow
             }
     };
 
@@ -76,17 +81,23 @@ public class MainActivity extends BaseToolbarActivity {
         mRv.setLayoutManager(new GridLayoutManager(this, 3));
         mRv.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
-//        initSatelliteMenu();
+        initCollapsingTbLayout();
+    }
+
+    private void initCollapsingTbLayout() {
+        mCollapsingTbLayout.setExpandedTitleColor(getResources().getColor(R.color.transparent));//透明
+        mCollapsingTbLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.white));
     }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        Drawable[] mDrawables = new Drawable[]{getDrawable(R.drawable.ic_add),
-                getDrawable(R.drawable.ic_add_reader),
-                getDrawable(R.drawable.ic_add),
-                getDrawable(R.drawable.ic_book)};
-
+        if (mDrawables == null) {
+            mDrawables = new Drawable[]{getResources().getDrawable(R.drawable.ic_add),
+                    getResources().getDrawable(R.drawable.ic_add_reader),
+                    getResources().getDrawable(R.drawable.ic_add),
+                    getResources().getDrawable(R.drawable.ic_book)};
+        }
         mBoomMenuButton.init(
                 mDrawables,
                 mBtnText,
@@ -100,7 +111,7 @@ public class MainActivity extends BaseToolbarActivity {
                 null,
                 null,
                 null,
-                null
+                0
         );
         mBoomMenuButton.setOnSubButtonClickListener(buttonIndex -> {
             switch (buttonIndex) {
@@ -118,38 +129,6 @@ public class MainActivity extends BaseToolbarActivity {
                     break;
             }
         });
-    }
-
-    private void initSatelliteMenu() {
-
-        ImageView ivAddReader = new ImageView(this);
-        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(40, 40);
-        ivAddReader.setLayoutParams(layoutParams);
-        ivAddReader.setImageResource(R.drawable.ic_add_reader);
-        ivAddReader.setBackground(getResources().getDrawable(R.drawable.circle_white));
-        ivAddReader.setOnClickListener(v -> {
-            showToast("点击了添加读者");
-        });
-
-        ImageView ivAddBook = new ImageView(this);
-//        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(40, 40);
-        ivAddBook.setLayoutParams(layoutParams);
-        ivAddBook.setImageResource(R.drawable.ic_book);
-        ivAddBook.setBackground(getResources().getDrawable(R.drawable.circle_white));
-        ivAddBook.setOnClickListener(v -> {
-            showToast("点击了添加");
-        });
-
-        SubActionButton.Builder itemAddReaderBuilder = new SubActionButton.Builder(this)
-                .setContentView(ivAddReader);
-        SubActionButton.Builder itemAddBookBuilder = new SubActionButton.Builder(this)
-                .setContentView(ivAddBook);
-
-//        FloatingActionMenu floatingActionMenu = new FloatingActionMenu.Builder(this)
-//                .addSubActionView(itemAddReaderBuilder.build())
-//                .addSubActionView(itemAddBookBuilder.build())
-//                .attachTo(mFloatingActionButton)
-//                .build();
     }
 
     @Override
@@ -189,7 +168,6 @@ public class MainActivity extends BaseToolbarActivity {
                     case 9:
                         startActivity(TypeInfoActivity.class);
                         break;
-
                     default:
                 }
             }
@@ -201,4 +179,13 @@ public class MainActivity extends BaseToolbarActivity {
         });
     }
 
+    @OnClick({R.id.collapsing_tb_layout, R.id.app_bar_layout})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.collapsing_tb_layout:
+                break;
+            case R.id.app_bar_layout:
+                break;
+        }
+    }
 }
