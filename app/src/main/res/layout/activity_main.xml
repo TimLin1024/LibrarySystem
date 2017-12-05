@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/coordinator_layout"
     android:orientation="vertical"
     tools:context="com.android.rdc.librarysystem.MainActivity">
 
@@ -53,16 +54,5 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
-    <com.nightonke.boommenu.BoomMenuButton
-        android:id="@+id/boom_menu_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="20dp"
-        app:boom_button_color="@color/colorPrimary"
-        app:boom_button_pressed_color="@color/colorPrimary"
-        app:boom_inActionBar="false"
-        app:layout_anchorGravity="bottom|end"/>
 
 </android.support.design.widget.CoordinatorLayout>

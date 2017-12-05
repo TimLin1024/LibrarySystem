@@ -1,8 +1,10 @@
 package com.android.rdc.librarysystem.ui;
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -41,6 +43,8 @@ public class TypeInfoActivity extends BaseToolbarActivity {
     Toolbar mIncludeToolbar;
     @BindView(R.id.tv_cancel)
     TextView mTvCancel;
+    @BindView(R.id.fab)
+    FloatingActionButton mFloatingActionButton;
 
     private boolean mSelectAll = true;//第一次显示为「全选」
 
@@ -57,7 +61,6 @@ public class TypeInfoActivity extends BaseToolbarActivity {
     @Override
     protected void initView() {
         setTitle("类型信息");
-
         mTabLayout.setupWithViewPager(mViewPager, true);
         Fragment[] fragments = new Fragment[2];
         fragments[0] = BookTypeFragment.newInstance();
@@ -69,7 +72,20 @@ public class TypeInfoActivity extends BaseToolbarActivity {
 
     @Override
     protected void initListener() {
+        mFloatingActionButton.setOnClickListener(v -> {
+            new AlertDialog.Builder(this)
+                    .setItems(new String[]{"添加书籍类型", "添加读者类型"}, (dialog, which) -> {
+                        switch (which) {
+                            case 0:
+                                startActivity(AddBookTypeActivity.class);
+                                break;
+                            case 1:
+                                startActivity(AddReaderTypeActivity.class);
+                                break;
 
+                        }
+                    }).show();
+        });
     }
 
     @Override

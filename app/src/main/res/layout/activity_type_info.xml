@@ -55,4 +55,16 @@
 
         </android.support.design.widget.TabLayout>
     </com.android.rdc.librarysystem.ui.widget.ScrollControlViewPager>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="20dp"
+        android:src="@drawable/ic_add"
+        app:background="@color/colorPrimary"
+        app:backgroundTint="@color/colorPrimary"
+        tools:targetApi="lollipop"/>
 </RelativeLayout>
