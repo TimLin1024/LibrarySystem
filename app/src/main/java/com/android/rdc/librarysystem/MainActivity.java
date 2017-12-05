@@ -34,6 +34,8 @@ public class MainActivity extends BaseToolbarActivity {
     AppBarLayout mAppBarLayout;
     private GridRvAdapter mAdapter;
 
+    private long mLastPressedTime;
+
     @Override
     protected int setLayoutResID() {
         return R.layout.activity_main;
@@ -109,6 +111,16 @@ public class MainActivity extends BaseToolbarActivity {
                 startActivity(StatisticsAnalysisActivity.class);
                 break;
             default:
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis() - mLastPressedTime <= 2 * 1000) {
+            finish();
+        } else {
+            mLastPressedTime = System.currentTimeMillis();
+            showToast("再按一次退出本应用");
         }
     }
 }

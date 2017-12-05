@@ -61,4 +61,9 @@
         <item name="android:textSize">16sp</item>
     </style>
 
+    <style name="ThemeSplash" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/bg_splash</item>
+    </style>
+
+
 </resources>

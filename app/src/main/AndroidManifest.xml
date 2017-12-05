@@ -8,6 +8,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
@@ -28,12 +29,17 @@
             android:name="BUGLY_ENABLE_DEBUG"
             android:value="true"/>
 
-        <activity android:name=".MainActivity">
+        <!--启动页-->
+        <activity
+            android:name=".ui.SplashActivity"
+            android:theme="@style/ThemeSplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".MainActivity">
         </activity>
         <activity
             android:name=".ui.AddReaderActivity"
@@ -69,6 +75,7 @@
         </activity>
         <activity android:name=".ui.ModifyBookTypeActivity">
         </activity>
+
     </application>
 
 </manifest>
