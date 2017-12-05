@@ -205,6 +205,7 @@ public class ModifyBookActivity extends BaseAddActivity implements ModifyBookCon
     }
 
     private void showPickerView(TextView tv) {
+        hideSoftInput();
         new TimePickerView.Builder(this, (date, v) -> {
             switch (tv.getId()) {
                 case R.id.tv_publish_date:

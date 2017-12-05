@@ -7,5 +7,4 @@ public enum ClickType {
     SELECT_ALL,
     UN_SELECT_ALL,
     CANCEL
-
 }

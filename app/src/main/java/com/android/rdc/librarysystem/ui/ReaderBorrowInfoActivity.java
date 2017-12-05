@@ -100,7 +100,7 @@ public class ReaderBorrowInfoActivity extends BaseToolbarActivity {
     private ReaderBorrowInfo getReaderBorrowBeanFromCursor(Cursor cursor) {
         return new ReaderBorrowInfo()
                 .setBookId(cursor.getLong(0))
-                .setBookMsg(cursor.getString(1) + cursor.getString(2))
+                .setBookMsg(cursor.getString(1) +" / "+ cursor.getString(2))
                 .setBorrowDateTime(cursor.getLong(3))
                 .setReturnDateTime(cursor.getLong(4));
     }

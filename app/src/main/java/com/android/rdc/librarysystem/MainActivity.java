@@ -103,7 +103,6 @@ public class MainActivity extends BaseToolbarActivity {
             case 5:
                 startActivity(QueryBookActivity.class);
                 break;
-
             case 6:
                 startActivity(TypeInfoActivity.class);
                 break;

@@ -220,6 +220,7 @@ public class ModifyReaderActivity extends BaseAddActivity implements ModifyReade
     }
 
     private void showDatePicker() {
+        hideSoftInput();//隐藏软键盘，防止遮挡日期选择框
         new TimePickerView.Builder(this, (date, v1) -> {
             mEnrollDate = date;
             mTvEnrollDate.setText(String.format("登记日期：%s", DateUtil.dayFormat(date)));
