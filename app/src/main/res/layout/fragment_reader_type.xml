@@ -11,28 +11,5 @@
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
-    <LinearLayout
-        android:id="@+id/ll_delete"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:divider="@drawable/divider_line_horizontal"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:showDividers="beginning"
-        android:visibility="gone">
-
-        <ImageView
-            android:id="@+id/iv_delete"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:background="@drawable/selector_iv"
-            android:padding="3dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_delete"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/delete"/>
-    </LinearLayout>
+    <include layout="@layout/include_delete"/>
 </LinearLayout>

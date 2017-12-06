@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_delete"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:divider="@drawable/divider_line_horizontal"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingBottom="2dp"
+    android:paddingTop="3dp"
+    android:showDividers="beginning"
+    android:visibility="gone"
+    tools:showIn="">
+
+    <ImageView
+        android:id="@+id/iv_delete"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:background="@drawable/selector_iv"
+        android:padding="5dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_delete"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/delete"
+        android:textSize="12sp"/>
+</LinearLayout>

@@ -75,10 +75,19 @@ public class BookTypeFragment extends BaseFragment {
 
             @Override
             public boolean onItemLongClick(int i) {
+                if (mLlDelete.getVisibility() == View.VISIBLE) {//目前已经显示了批量处理界面
+                    BookType bookType = mAdapter.getDataList().get(i);
+                    bookType.setSelected(!bookType.isSelected());
+                    mAdapter.notifyItemChanged(i);
+                    return true;
+                }
                 mAdapter.getDataList().get(i).setSelected(true);
                 mAdapter.setShowCheckBox(true);
                 mLlDelete.setVisibility(View.VISIBLE);
-                EventBus.getDefault().post(new ShowSelectAll());
+                for (BookType bookType : mBookTypeList) {//批量操作开始时默认没有选中任何项
+                    bookType.setSelected(false);
+                }
+                EventBus.getDefault().post(new ShowSelectAll());//发送
                 return true;
             }
         });

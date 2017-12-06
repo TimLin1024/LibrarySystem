@@ -90,28 +90,38 @@ public class TypeInfoActivity extends BaseToolbarActivity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         EventBus.getDefault().unregister(this);
+        super.onDestroy();
     }
 
     @OnClick({R.id.tv_select_all, R.id.tv_cancel})
     public void onViewClicked(View v) {
         switch (v.getId()) {
             case R.id.tv_select_all:
-                EventBus.getDefault().post(mSelectAll ? ClickType.SELECT_ALL : ClickType.UN_SELECT_ALL);
-                mSelectAll = !mSelectAll;//下一次显示与上一次不同
-                mTvSelectAll.setText(mSelectAll ? "全选" : "全不选");
+                onSelectAllClick();
                 break;
             case R.id.tv_cancel:
-                mTvSelectAll.setVisibility(View.GONE);
-                mTvCancel.setVisibility(View.GONE);
-                EventBus.getDefault().post(ClickType.CANCEL);
-                mViewPager.setScrollable(true);
-                showActionBar(true);
-                setTabItemClickable(true);
+                onCancelClickOrBackPressed();
                 break;
-
         }
+    }
+    /**
+     * 选中时可能显示的文字是「全选」或者「全不选」，在这两个状态之间进行转换
+     * */
+    private void onSelectAllClick() {
+        EventBus.getDefault().post(mSelectAll ? ClickType.SELECT_ALL : ClickType.UN_SELECT_ALL);
+        mSelectAll = !mSelectAll;//下一次显示与上一次不同
+        mTvSelectAll.setText(mSelectAll ? "全选" : "全不选");
+    }
+
+    private void onCancelClickOrBackPressed() {
+        EventBus.getDefault().post(ClickType.CANCEL);//发送消息，提示点击了「取消」按钮
+        mTvSelectAll.setVisibility(View.GONE);
+        mTvCancel.setVisibility(View.GONE);
+        mViewPager.setScrollable(true);
+        showActionBar(true);
+        setTabItemClickable(true);
+        mFloatingActionButton.setVisibility(View.VISIBLE);
     }
 
     private void showActionBar(boolean show) {
@@ -127,6 +137,7 @@ public class TypeInfoActivity extends BaseToolbarActivity {
         showActionBar(false);
         mViewPager.setScrollable(false);
         setTabItemClickable(false);
+        mFloatingActionButton.setVisibility(View.GONE);//隐藏浮动按钮
     }
 
     private void setTabItemClickable(boolean clickable) {
@@ -144,5 +155,14 @@ public class TypeInfoActivity extends BaseToolbarActivity {
         tabStrip.setDividerDrawable(ContextCompat.getDrawable(this, R.drawable.divider_tab_vertical));
         tabStrip.setDividerPadding(40);
         tabStrip.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mTvCancel.getVisibility() == View.VISIBLE){//如果是现在显示批量删除界面，则隐藏批量删除界面
+            onCancelClickOrBackPressed();
+            return;
+        }
+        super.onBackPressed();
     }
 }

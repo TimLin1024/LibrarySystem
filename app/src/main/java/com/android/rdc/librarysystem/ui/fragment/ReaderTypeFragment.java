@@ -73,9 +73,18 @@ public class ReaderTypeFragment extends BaseFragment {
 
             @Override
             public boolean onItemLongClick(int i) {
+                if (mLlDelete.getVisibility() == View.VISIBLE) {//目前已经显示了批量处理界面
+                    ReaderType readerType = mAdapter.getDataList().get(i);
+                    readerType.setSelected(!readerType.isSelected());
+                    mAdapter.notifyItemChanged(i);
+                    return true;
+                }
                 mAdapter.getDataList().get(i).setSelected(true);
                 mAdapter.setShowCheckBox(true);
                 mLlDelete.setVisibility(View.VISIBLE);
+                for (ReaderType readerType : mReaderTypeList) {
+                    readerType.setSelected(false);
+                }
                 EventBus.getDefault().post(new ShowSelectAll());
                 return true;
             }
@@ -100,7 +109,7 @@ public class ReaderTypeFragment extends BaseFragment {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, priority = 100)
-    void onSelectAllClick(Enum<ClickType> clickType) {
+    public void onSelectAllClick(Enum<ClickType> clickType) {
         if (clickType == ClickType.CANCEL) {
             mLlDelete.setVisibility(View.GONE);
             mAdapter.setShowCheckBox(false);//内部自动调用 notifyDataSetChanged
