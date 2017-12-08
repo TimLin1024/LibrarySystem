@@ -1,11 +1,15 @@
 package com.android.rdc.librarysystem.app;
 
+import android.content.Context;
+
 import com.android.rdc.librarysystem.bean.Book;
 import com.android.rdc.librarysystem.bean.BookType;
 import com.android.rdc.librarysystem.bean.Reader;
 import com.android.rdc.librarysystem.bean.ReaderType;
 import com.android.rdc.librarysystem.model.DefaultDataModel;
 import com.facebook.stetho.Stetho;
+import com.letv.sarrsdesktop.blockcanaryex.jrt.BlockCanaryEx;
+import com.letv.sarrsdesktop.blockcanaryex.jrt.Config;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.tencent.bugly.crashreport.CrashReport;
@@ -16,6 +20,15 @@ import org.litepal.tablemanager.Connector;
 
 public class App extends LitePalApplication {
     private static final String TAG = "App";
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        boolean isInSamplerProcess = BlockCanaryEx.isInSamplerProcess(this);
+        if (!isInSamplerProcess) {
+            BlockCanaryEx.install(new Config(this));
+        }
+    }
 
     @Override
     public void onCreate() {

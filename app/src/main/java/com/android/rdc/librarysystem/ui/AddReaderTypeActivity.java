@@ -1,7 +1,6 @@
 package com.android.rdc.librarysystem.ui;
 
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -32,8 +31,6 @@ public class AddReaderTypeActivity extends BaseAddActivity {
     TextView mTvExpireDate;
     @BindView(R.id.et_remark)
     EditText mEtRemark;
-    @BindView(R.id.btn_add_reader_type)
-    Button mBtnAddReaderType;
 
     private Date mExpDate;//「到期时间」
 
