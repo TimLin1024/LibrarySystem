@@ -146,6 +146,11 @@ public class AddBookActivity extends BaseAddActivity {
             return;
         }
 
+        if (mEnrollDate.before(mPublishDate)) {
+            showToast("登记日期不能早于出版日期");
+            return;
+        }
+
         Book book = new Book();
         book.setBookName(getString(mEtBookName));
         book.setBookType(mBookTypeList.get(mSpBookType.getSelectedItemPosition() - 1));//这里要减一，因为前面手动添加了一个提示项

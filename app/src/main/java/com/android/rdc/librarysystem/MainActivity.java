@@ -6,6 +6,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.ImageView;
 
 import com.android.rdc.amdroidutil.base.BaseToolbarActivity;
 import com.android.rdc.amdroidutil.listener.OnClickRecyclerViewListener;
@@ -34,6 +35,8 @@ public class MainActivity extends BaseToolbarActivity {
     AppBarLayout mAppBarLayout;
     private GridRvAdapter mAdapter;
 
+    @BindView(R.id.iv)
+    ImageView mImageView;
     private long mLastPressedTime;
 
     @Override

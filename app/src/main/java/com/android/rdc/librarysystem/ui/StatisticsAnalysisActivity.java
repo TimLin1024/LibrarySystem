@@ -60,17 +60,10 @@ public class StatisticsAnalysisActivity extends BaseToolbarActivity implements S
 
     @Override
     public void updateBookTypeChart(PieData pieData) {
+        mPieChartBookType.getDescription().setEnabled(true);
         Description description = new Description();
         description.setText("图书类型馆藏图");
         mPieChartStoreInfo.setDescription(description);
-        mPieChartBookType.getDescription().setEnabled(true);
-//        Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "OpenSans-Light.ttf");
-//        mPieChartBookType.setCenterTextTypeface(tf);
-//        mPieChartBookType.setCenterText(generateCenterText());
-//        mPieChartBookType.setCenterTextSize(10f);
-//        mPieChartBookType.setCenterTextTypeface(tf);
-
-        // radius of the center hole in percent of maximum radius
         mPieChartBookType.setHoleRadius(40f);//中间空白圆的半径
         mPieChartBookType.setTransparentCircleRadius(46f);//透明圆的半径
 
@@ -84,12 +77,12 @@ public class StatisticsAnalysisActivity extends BaseToolbarActivity implements S
 
     @Override
     public void updateStoreInfoChart(PieData pieData) {
+        mPieChartStoreInfo.getDescription().setEnabled(true);
         Description description = new Description();
         description.setText("图书在馆/出借图");
         mPieChartStoreInfo.setDescription(description);
-        mPieChartStoreInfo.getDescription().setEnabled(true);
-        mPieChartStoreInfo.setHoleRadius(45f);
-        mPieChartStoreInfo.setTransparentCircleRadius(47f);
+        mPieChartStoreInfo.setHoleRadius(40f);
+        mPieChartStoreInfo.setTransparentCircleRadius(46f);
 
         Legend legend = mPieChartStoreInfo.getLegend();
         legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);

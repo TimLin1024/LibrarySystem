@@ -27,6 +27,7 @@
             <!--这里因为需要 logo 着色所以设置为背景，而不是 src，若放在 Toolbar 之后会导致覆盖-->
             <!--上述结论错误，只要 Toolbar  不设置为 pin 还是可以的-->
             <ImageView
+                android:id="@+id/iv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

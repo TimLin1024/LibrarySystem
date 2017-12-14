@@ -243,6 +243,10 @@ public class ModifyBookActivity extends BaseAddActivity implements ModifyBookCon
             showToast("请选择登记日期");
             return;
         }
+        if (mEnrollDate.before(mPublishDate)) {
+            showToast("登记日期不能早于出版日期");
+            return;
+        }
 
         Book book = DataSupport.find(Book.class, mBookId);
         book.setBookName(getString(mEtBookName));

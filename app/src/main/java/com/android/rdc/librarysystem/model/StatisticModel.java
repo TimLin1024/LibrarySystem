@@ -37,6 +37,7 @@ public class StatisticModel implements StatisticContract.Model {
         }
 
         PieDataSet pieDataSet = new PieDataSet(pieEntries, "图书类型");//数据集
+        pieDataSet.setLabel("");
         pieDataSet.setColors(ColorTemplate.JOYFUL_COLORS);//颜色集
         pieDataSet.setSliceSpace(2f);//片与片的间隔
         pieDataSet.setValueTextColor(Color.WHITE);//饼状图字体颜色

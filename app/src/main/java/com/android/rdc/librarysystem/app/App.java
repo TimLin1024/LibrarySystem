@@ -8,8 +8,6 @@ import com.android.rdc.librarysystem.bean.Reader;
 import com.android.rdc.librarysystem.bean.ReaderType;
 import com.android.rdc.librarysystem.model.DefaultDataModel;
 import com.facebook.stetho.Stetho;
-import com.letv.sarrsdesktop.blockcanaryex.jrt.BlockCanaryEx;
-import com.letv.sarrsdesktop.blockcanaryex.jrt.Config;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.tencent.bugly.crashreport.CrashReport;
@@ -24,10 +22,10 @@ public class App extends LitePalApplication {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        boolean isInSamplerProcess = BlockCanaryEx.isInSamplerProcess(this);
-        if (!isInSamplerProcess) {
-            BlockCanaryEx.install(new Config(this));
-        }
+//        boolean isInSamplerProcess = BlockCanaryEx.isInSamplerProcess(this);
+//        if (!isInSamplerProcess) {
+//            BlockCanaryEx.install(new Config(this));
+//        }
     }
 
     @Override
@@ -74,7 +72,6 @@ public class App extends LitePalApplication {
             return;
         }
         DataSupport.saveAll(DefaultDataModel.generateDefaultReaderTypeList());
-
     }
 
     private void addDefaultBookType() {
