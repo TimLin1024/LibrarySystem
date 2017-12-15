@@ -126,7 +126,8 @@ public class BorrowBookActivity extends BaseAddActivity {
         for (Book book : bookList) {
             bookIdList.add(String.valueOf(book.getId()));
         }
-        ArrayAdapter<String> bookIdAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, bookIdList);
+        ArrayAdapter<String> bookIdAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_dropdown_item_1line, bookIdList);
         mTvAutoCompleteBookId.setAdapter(bookIdAdapter);
     }
 
@@ -136,7 +137,8 @@ public class BorrowBookActivity extends BaseAddActivity {
         for (Reader reader : readerList) {
             readerNameList.add(String.valueOf(reader.getId()));
         }
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, readerNameList);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_dropdown_item_1line, readerNameList);
         mTvAcReaderId.setAdapter(arrayAdapter);
     }
 }

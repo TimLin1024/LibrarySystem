@@ -38,7 +38,7 @@ public class App extends LitePalApplication {
         CrashReport.initCrashReport(getApplicationContext());//初始化 bugly
     }
 
-    protected RefWatcher setupLeakCanary() {
+        protected RefWatcher setupLeakCanary() {
         if (LeakCanary.isInAnalyzerProcess(this)) {
             return RefWatcher.DISABLED;
         }
