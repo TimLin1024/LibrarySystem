@@ -1,10 +1,13 @@
 # LibrarySystem
+
 ### 简介
+
 数据库课程设计(一个简单的图书管理系统)。
 
 数据库部分使用 LitePal ORM 框架实现，搜索记录使用 Android 提供的 SQLiteOpenHelper 实现，修改模块与统计分析模块使用了 MVP 模式实现。
 
 ### 基本功能
+
 1. 能够完成书籍信息的输入、修改、删除等工作，书籍的基本信息，包括编号、书籍名称、作者等，具体可根据需求自行设计；
 2. 能够完成读者信息输入、修改、删除等工作，读者的基本信息，包括读者姓名、类型、登记日期、工作单位等，具体可根据需求自行设计；
 3. 书籍的查询功能，可以根据书籍名称、作者名称、书籍类型等进行书籍查询；
@@ -15,11 +18,9 @@
 
 ### 程序运行部分截图
 
-![image](https://user-images.githubusercontent.com/16668676/39284123-6081b2a8-4944-11e8-84a3-5f90ac927e67.png)
+![](https://user-images.githubusercontent.com/16668676/39285245-fbbc2744-4949-11e8-9fa2-14457dd03e4b.png)
 
 ![image](https://user-images.githubusercontent.com/16668676/39283801-9adcf252-4942-11e8-9798-17ed1712ab08.png)
-
-![image](https://user-images.githubusercontent.com/16668676/39283807-a4ea9bc8-4942-11e8-881d-837296bbfc71.png)
 
 ![image](https://user-images.githubusercontent.com/16668676/39283810-a92d3df8-4942-11e8-846e-6301a8134a48.png)
 
